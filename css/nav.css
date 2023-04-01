@@ -31,7 +31,6 @@
 .navbar a:hover, .subnav:hover .subnavbtn {
   background-color:  #0067a0;
 }
-
 .subnav-content {
   display: none;
   position: absolute;

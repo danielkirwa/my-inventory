@@ -1,5 +1,5 @@
 <?php 
-   require_once('php/connection.php');
+   require_once('application/connection.php');
 
  ?>
 
