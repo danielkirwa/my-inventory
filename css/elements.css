@@ -1,0 +1,43 @@
+.action-div{
+	background: #C0C0C0;
+}
+.input-holder{
+  display: flex;
+  background: #00000000;
+  flex-wrap: wrap;
+    justify-content: center;
+
+}
+.card{
+  flex: 1 1 310px; /*  Stretching: */
+    flex: 0 1 310px; /*  No stretching: */
+    margin: 5px;
+    background: blue;
+     background-color: #00000000;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 40px 80px #FBE4E0;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+.my-btn{
+	padding: 6px 8px;
+	background:#0067a0;
+	outline: none;
+	width: 300px;
+	border: none;
+	 font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+
+}
+.my-btn:hover{
+	cursor: pointer;
+    color: #ff6a13;
+
+}
+.small-label{
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}

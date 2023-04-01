@@ -30,6 +30,7 @@ if ($_SESSION['username']) {
 	<title>Register</title>
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
+	<link rel="stylesheet" type="text/css" href="css/elements.css">
 </head>
 <body>
 <div>
@@ -92,8 +93,112 @@ if ($_SESSION['username']) {
 </div>
 <!-- end of nav bar -->
 
+<div class="action-div">
+	 <center><h3 class="my-label">Staff management</h3></center>
+
+	 <div class="input-holder">
+      <div class="card">
+      	<center>
+          <label class="small-label">First Name</label><br>
+          <input type="text" name="" placeholder="Enter First Name" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+      	<center>
+      	<label class="small-label">Other Name</label><br>
+          <input type="text" name="" placeholder="Enter Other Name" class="my-input">
+          </center>
+      </div>
+   </div>
+
+   <div class="input-holder">
+      <div class="card">
+      	<center>
+          <label class="small-label">ID Number</label><br>
+          <input type="text" name="" placeholder="Enter ID Number" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+      	<center>
+      	<label class="small-label">Phone Number</label><br>
+          <input type="text" name="" placeholder="+2557xxxxxxx" class="my-input">
+          </center>
+      </div>
+   </div>
+
+    <div class="input-holder">
+      <div class="card">
+      	<center>
+          <label class="small-label">Email </label><br>
+          <input type="text" name="" placeholder="Enter ID Number" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+      	<center>
+      	<label class="small-label">Other Number</label><br>
+          <input type="text" name="" placeholder="+2557xxxxxxx" class="my-input">
+          </center>
+      </div>
+   </div>
+ 
+    <div class="input-holder">
+      <div class="card">
+      	<center>
+          <label class="small-label">Role</label><br>
+           <select class="my-input">
+           	<option>Role one</option>
+           	<option>Role one</option>
+           	<option>Role one</option>
+           </select>
+          </center>
+      </div>
+      <div class="card">
+      	<center>
+      	<label class="small-label">Gender</label><br>
+          <select class="my-input">
+           	<option>Male</option>
+           	<option>Female</option>
+           </select>
+          </center>
+      </div>
+   </div>
+
+     <div class="input-holder">
+      <div class="card">
+      	<center>
+          <label class="small-label">Work Station</label><br>
+           <select class="my-input">
+           	<option>Station one</option>
+           	<option>Station one</option>
+           	<option>Station one</option>
+           </select>
+          </center>
+      </div>
+      <div class="card">
+      	<center>
+      		<label class="small-label">Birth Date</label><br>
+      		<input type="date" name="" class="my-input">
+      	</center>
+      </div>
+   </div>
 
 
+   <div class="input-holder">
+      <div class="card">
+      	<center>
+          <input type="submit" name="" value="Save Staff" class="my-btn">
+          </center>
+      </div>
+      <div class="card">
+      
+      	
+      </div>
+   </div>
+
+
+
+</div>
+<br><br><br><br>
 <!-- footer starts -->
 <div class="footer">
 	 <h3></h3>

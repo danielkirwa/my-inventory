@@ -66,7 +66,7 @@ if ($_SESSION['username']) {
    <div class="subnav">
     <button class="subnavbtn">Register <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#link1">Add Staff</a>
+      <a href="register.php">Add Staff</a>
       <a href="#link2">Add Role</a>
       <a href="#link3">Create Acount</a>
     </div>
