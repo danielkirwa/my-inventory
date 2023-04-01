@@ -1,6 +1,6 @@
 
 <?php 
-   require_once('php/con.php');
+   require_once('php/connection.php');
 
  ?>
  <?php
