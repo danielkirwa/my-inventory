@@ -1,0 +1,39 @@
+.dashboard{
+  background: #f1f1f1;
+  width: 90%;
+  margin-left: 5%;
+   box-sizing: border-box;
+}
+.general-banner{
+  width: 80%;
+  margin-left: 10%;
+  background: teal;
+    display: flex;
+  flex-wrap: wrap;
+    justify-content: center;
+}
+.dashboard-card-holder{
+  display: flex;
+  background: #ffffff;
+  flex-wrap: wrap;
+    justify-content: center;
+
+}
+.dashboard-message{
+  display: flex;
+  background: #ffffff;
+  flex-wrap: wrap;
+    justify-content: center;
+
+}
+.card{
+  flex: 1 1 310px; /*  Stretching: */
+    flex: 0 1 310px; /*  No stretching: */
+    margin: 5px;
+    background: blue;
+     background-color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 40px 80px #FBE4E0;
+  border-radius: 14px;
+}

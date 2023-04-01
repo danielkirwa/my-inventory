@@ -1,3 +1,25 @@
+
+<?php 
+   require_once('php/con.php');
+
+ ?>
+ <?php
+//initialize the session
+if (!isset($_SESSION)) {
+  session_start();
+}
+
+if ($_SESSION['username']) {
+  // code...
+ $currentUser =  $_SESSION['username'];
+ $currentprivillege = $_SESSION['privillege'] ;
+
+}else{
+    header("Location:index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +28,7 @@
 	<title>Dashboard</title>
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
+  <link rel="stylesheet" type="text/css" href="css/dashboard.css">
 	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -46,7 +69,6 @@
       <a href="#link1">Add Staff</a>
       <a href="#link2">Add Role</a>
       <a href="#link3">Create Acount</a>
-      <a href="#link4">Link 4</a>
     </div>
   </div>
   <div class="subnav">
@@ -60,13 +82,37 @@
   </div>
   <a href="#contact">Settings</a>
   <a href="#contact">Sale Desk</a>
-  <a href="#contact">Username</a>
+  <div class="subnav">
+    <button class="subnavbtn"><?php echo $currentUser; ?><i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#link1">Profile</a>
+      <a href="logout.php">Logout</a>
+    </div>
+  </div>
 </div>
 <!-- end nav -->
 
 <!-- start of dashboard -->
+<br><br>
+<div class="dashboard">Welcome to <?php echo $currentprivillege; ?> Dashboard
+   <div class="general-banner">
+    <div class="card">card</div>
+      <div class="card">card</div>
+    
+   </div>
+   <div class="dashboard-card-holder">
+      <div class="card">card</div>
+      <div class="card">card</div>
+      <div class="card">card</div>
+      <div class="card">card</div>
+      <div class="card">card</div>
+   </div>
+   <div class="dashboard-message">
+      <div class="card">card</div>
+      <div class="card">card</div>
 
-<div>Welcome</div>
+   </div>
+</div>
 
 <!-- end of dashboard -->
 <!-- footer starts -->

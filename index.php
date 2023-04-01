@@ -1,3 +1,58 @@
+<?php 
+   require_once('php/con.php');
+
+ ?>
+
+   <?php 
+     // login button 
+         session_start();
+        if(isset($_POST['logintoaccount'])){
+             
+            if($_POST['username'] != "" && $_POST['userpassword'] != ""){
+            $newUserName = $_POST['username'];
+            $NewPassword = md5($_POST['userpassword']);
+             echo $NewPassword;
+     
+            $query = "SELECT Username,Privilege FROM tbluser WHERE Username='$newUserName' AND Password='$NewPassword'"; 
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+              // output data of each row
+              if($row = $result->fetch_assoc()) {
+
+                $_SESSION['username'] = $row["Username"];
+               $_SESSION['privillege'] = $row['Privilege'];
+                
+   
+                if($_SESSION['privillege'] == "User"){
+                header("Refresh:1; url=dashboard.php");
+
+               }
+
+               if($_SESSION['privillege'] == "Admin"){
+                header("Location:dashboard.php");
+
+               }
+               if($_SESSION['privillege'] == "none"){
+                echo '<script>alert ("Your account was Disable")</script>';
+
+               }
+              }
+            } else {
+              echo "<script>alert('Incorrect login details');</script>";
+            }
+
+
+                }else{
+           echo "<script>alert('Fill in all you login details');</script>";
+        }
+ 
+           
+
+        }
+   ?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +76,12 @@
 	 <div class="login-form">
 	 	<center><h3>Log now</h3></center>
         <div>
-        	<form><center>
+        	<form action="index.php" method="POST" name=""><center>
         	<label class="my-label">Username</label><br><br>
-        	<input type="" name="" placeholder="Enter Username" class="my-input"><br><br>
+        	<input type="" name="username" placeholder="Enter Username" class="my-input"><br><br>
         	<label class="my-label">Password</label><br><br>
-        	<input type="password" name="" placeholder="***********" class="my-input"><br><br>
-        	<input type="submit" name="" value="Login Now" class="login-btn"><br><br>
+        	<input type="password" name="userpassword" placeholder="***********" class="my-input"><br><br>
+        	<input type="submit" name="logintoaccount" value="Login Now" class="login-btn"><br><br>
         	</center>
         	</form>
         </div>
