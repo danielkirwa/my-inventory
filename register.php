@@ -73,24 +73,33 @@ if (isset($_SERVER['QUERY_STRING'])) {
     $newemail = $_POST['email'];
     $newotherphone = $_POST['otherphone'];
     $newdateofbirth = $_POST['dateofbirth'];
-     if(!empty($_POST['role'])) {
-        $newrole = $_POST['role'];
-        echo 'You have chosen: ' . $newrole;
-    } else {
-        echo 'Please select the value.';
-    }
-    if(!empty($_POST['gender'])) {
-        $newgender = $_POST['gender'];
-        echo 'You have chosen: ' . $newgender;
-    } else {
-        echo 'Please select the value.';
-    }
-     if(!empty($_POST['station'])) {
+    $newrole;
+    $newgender;
+    $newstation;
+     $newdate =  date("Y-m-d");
+ if(!empty($_POST['station']) && !empty($_POST['role']) && !empty($_POST['gender'])){
         $newstation = $_POST['station'];
-        echo 'You have chosen: ' . $newstation;
-    } else {
-        echo 'Please select the value.';
+        $newgender = $_POST['gender'];
+        $newrole = $_POST['role'];
+        if(!empty($_POST['firstname']) && !empty($_POST['idnumber']) && !empty($_POST['phone'])) {
+         $newregistersql = "INSERT INTO tblregister (Firstname, Othername,Email,Phone,Otherphone,Idnumber,Dateofbirth,Role,Gender,Shop,Createdby,Datecreated)
+            VALUES ('{$newfirstname}','{$newothername}','{$newemail}','{$newphone}','{$newotherphone}','{$newidnumber}','{$newdateofbirth}','{$newrole}','{$newgender}','{$newstation}', '{$currentUser}','{$newdate}')";
+
+
+              if ($conn->query($newregistersql) === TRUE) {
+                 echo "New record created successfully";
+              } else {
+                echo "Error: " . $newregistersql . "<br>" . $conn->messaeg;
+              }
+       
+        
+    }else{
+       echo "<script>alert('Please Fill in The First name, ID number and Phone number');</script>";
     }
+    } else {
+      echo "<script>alert('Please select the Role, Station and Gender');</script>";
+    }
+ 
 
 
 
@@ -174,7 +183,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 </div>
 <!-- end of nav bar -->
 <div class="action-div">
-  <form action="register.php" method="POST" name="">
+  <form action="register.php" method="POST" name="" id="submitform">
 	 <center><h3 class="my-label">Staff management</h3></center>
 
 	 <div class="input-holder">
@@ -228,9 +237,10 @@ if (isset($_SERVER['QUERY_STRING'])) {
           <label class="small-label">Role</label><br>
            <select class="my-input" name="role">
             <option value="" disabled selected>Choose Role</option>
-           	<option value="Role 1">Role one</option>
-           	<option value="Role 2">Role one</option>
-           	<option value="Role 3">Role one</option>
+           	<option value="Cashier">Cashier</option>
+           	<option value="SalesLead">Sales Lead</option>
+           	<option value="Admin">Admin</option>
+            <option value="Casual">Casual</option>
            </select>
           </center>
       </div>
@@ -252,7 +262,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
           <label class="small-label">Work Station</label><br>
            <select class="my-input" name="station">
             <option value="" disabled selected>Choose Station</option>
-           	<option value="Main Station">Main Station</option>
+           	<option value="MainStation">Main Station</option>
            	<option value="Branch">Branch </option>
            </select>
           </center>
@@ -292,11 +302,11 @@ if (isset($_SERVER['QUERY_STRING'])) {
   <table>
     <thead>
       <th>First Name</th>
-      <th>Last Name</th>
-      <th>Points</th>
-      <th>Points</th>
-      <th>Points</th>
-      <th>Points</th>
+      <th>Email </th>
+      <th>Phone</th>
+      <th>Station</th>
+      <th>ID Number</th>
+      <th>Role</th>
     </thead>
     <tr>
       <td>Jill</td>
@@ -319,5 +329,6 @@ if (isset($_SERVER['QUERY_STRING'])) {
    Juelga solution &copy;  &nbsp;&nbsp;<a href="https://www.juelgasolutions.co.tz" style="text-decoration: none; color: #ffffff">juelgasolution </a><br>
    <h3></h3>
 </div>
+
 </body>
 </html>
