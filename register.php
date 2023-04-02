@@ -28,6 +28,7 @@ if ($_SESSION['username']) {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Register</title>
+
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
 	<link rel="stylesheet" type="text/css" href="css/elements.css">
@@ -92,7 +93,6 @@ if ($_SESSION['username']) {
   </div>
 </div>
 <!-- end of nav bar -->
-
 <div class="action-div">
 	 <center><h3 class="my-label">Staff management</h3></center>
 
@@ -195,9 +195,40 @@ if ($_SESSION['username']) {
       </div>
    </div>
 
-
-
 </div>
+
+
+<!-- table -->
+<br><br>
+
+<div class="scroll-table">
+  <div class="table-holder">
+    <div class="table-caption">
+      <label class="my-label">List of staff  </label>
+    </div>
+  <table>
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+      <th>Points</th>
+    </thead>
+    <tr>
+      <td>Jill</td>
+      <td>Smith</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+      <td>50</td>
+    </tr>
+    </table>
+  </div>
+</div>
+
+
+
 <br><br><br><br>
 <!-- footer starts -->
 <div class="footer">
