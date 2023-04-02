@@ -19,6 +19,86 @@ if ($_SESSION['username']) {
 }
 
 ?>
+<!-- escaping sql injection -->
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+$editFormAction = $_SERVER['PHP_SELF'];
+if (isset($_SERVER['QUERY_STRING'])) {
+  $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
+}
+
+?>
+
+
+
+<?php 
+
+
+  // get data to insert
+  if(isset($_POST['addstaff'])){
+    $newfirstname = $_POST['firstname'];
+    $newothername = $_POST['othername'];
+    $newidnumber = $_POST['idnumber'];
+    $newphone = $_POST['phone'];
+    $newemail = $_POST['email'];
+    $newotherphone = $_POST['otherphone'];
+    $newdateofbirth = $_POST['dateofbirth'];
+     if(!empty($_POST['role'])) {
+        $newrole = $_POST['role'];
+        echo 'You have chosen: ' . $newrole;
+    } else {
+        echo 'Please select the value.';
+    }
+    if(!empty($_POST['gender'])) {
+        $newgender = $_POST['gender'];
+        echo 'You have chosen: ' . $newgender;
+    } else {
+        echo 'Please select the value.';
+    }
+     if(!empty($_POST['station'])) {
+        $newstation = $_POST['station'];
+        echo 'You have chosen: ' . $newstation;
+    } else {
+        echo 'Please select the value.';
+    }
+
+
+
+
+  }
+
+
+ ?>
 
 
 
@@ -94,19 +174,20 @@ if ($_SESSION['username']) {
 </div>
 <!-- end of nav bar -->
 <div class="action-div">
+  <form action="register.php" method="POST" name="">
 	 <center><h3 class="my-label">Staff management</h3></center>
 
 	 <div class="input-holder">
       <div class="card">
       	<center>
           <label class="small-label">First Name</label><br>
-          <input type="text" name="" placeholder="Enter First Name" class="my-input">
+          <input type="text" name="firstname" placeholder="Enter First Name" class="my-input">
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Other Name</label><br>
-          <input type="text" name="" placeholder="Enter Other Name" class="my-input">
+          <input type="text" name="othername" placeholder="Enter Other Name" class="my-input">
           </center>
       </div>
    </div>
@@ -115,13 +196,13 @@ if ($_SESSION['username']) {
       <div class="card">
       	<center>
           <label class="small-label">ID Number</label><br>
-          <input type="text" name="" placeholder="Enter ID Number" class="my-input">
+          <input type="text" name="idnumber" placeholder="Enter ID Number" class="my-input">
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Phone Number</label><br>
-          <input type="text" name="" placeholder="+2557xxxxxxx" class="my-input">
+          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
           </center>
       </div>
    </div>
@@ -130,13 +211,13 @@ if ($_SESSION['username']) {
       <div class="card">
       	<center>
           <label class="small-label">Email </label><br>
-          <input type="text" name="" placeholder="Enter ID Number" class="my-input">
+          <input type="text" name="email" placeholder="Enter ID Number" class="my-input">
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Other Number</label><br>
-          <input type="text" name="" placeholder="+2557xxxxxxx" class="my-input">
+          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
           </center>
       </div>
    </div>
@@ -145,19 +226,21 @@ if ($_SESSION['username']) {
       <div class="card">
       	<center>
           <label class="small-label">Role</label><br>
-           <select class="my-input">
-           	<option>Role one</option>
-           	<option>Role one</option>
-           	<option>Role one</option>
+           <select class="my-input" name="role">
+            <option value="" disabled selected>Choose Role</option>
+           	<option value="Role 1">Role one</option>
+           	<option value="Role 2">Role one</option>
+           	<option value="Role 3">Role one</option>
            </select>
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Gender</label><br>
-          <select class="my-input">
-           	<option>Male</option>
-           	<option>Female</option>
+          <select class="my-input" name="gender">
+            <option value="" disabled selected>Choose Gender</option>
+           	<option value="Male">Male</option>
+           	<option value="Female">Female</option>
            </select>
           </center>
       </div>
@@ -167,17 +250,17 @@ if ($_SESSION['username']) {
       <div class="card">
       	<center>
           <label class="small-label">Work Station</label><br>
-           <select class="my-input">
-           	<option>Station one</option>
-           	<option>Station one</option>
-           	<option>Station one</option>
+           <select class="my-input" name="station">
+            <option value="" disabled selected>Choose Station</option>
+           	<option value="Main Station">Main Station</option>
+           	<option value="Branch">Branch </option>
            </select>
           </center>
       </div>
       <div class="card">
       	<center>
       		<label class="small-label">Birth Date</label><br>
-      		<input type="date" name="" class="my-input">
+      		<input type="date" name="dateofbirth" class="my-input">
       	</center>
       </div>
    </div>
@@ -186,7 +269,7 @@ if ($_SESSION['username']) {
    <div class="input-holder">
       <div class="card">
       	<center>
-          <input type="submit" name="" value="Save Staff" class="my-btn">
+          <input type="submit" name="addstaff" value="Save Staff" class="my-btn">
           </center>
       </div>
       <div class="card">
@@ -194,7 +277,7 @@ if ($_SESSION['username']) {
       	
       </div>
    </div>
-
+</form>
 </div>
 
 
