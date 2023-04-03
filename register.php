@@ -57,6 +57,27 @@ if (isset($_SERVER['QUERY_STRING'])) {
   $editFormAction .= "?" . htmlentities($_SERVER['QUERY_STRING']);
 }
 
+
+
+
+// select all staff if any 
+
+  $per_page_record = 4;  // Number of entries to show in a page.   
+        // Look for a GET variable page if not found default is 1.        
+        if (isset($_GET["page"])) {    
+            $page  = $_GET["page"];    
+        }    
+        else {    
+          $page=1;    
+        }    
+    
+        $start_from = ($page-1) * $per_page_record;     
+    
+        $query = "SELECT * FROM tblregister LIMIT $start_from, $per_page_record";     
+        $rs_result = mysqli_query ($conn, $query);    
+
+
+
 ?>
 
 
@@ -308,15 +329,71 @@ if (isset($_SERVER['QUERY_STRING'])) {
       <th>ID Number</th>
       <th>Role</th>
     </thead>
-    <tr>
-      <td>Jill</td>
-      <td>Smith</td>
-      <td>50</td>
-      <td>50</td>
-      <td>50</td>
-      <td>50</td>
-    </tr>
-    </table>
+    <tbody>   
+    <?php     
+            while ($row = mysqli_fetch_array($rs_result)) {    
+                  // Display each field of the records.    
+            ?>     
+            <tr>     
+             <td><?php echo $row["Firstname"]; ?></td>     
+            <td><?php echo $row["Email"]; ?></td>   
+            <td><?php echo $row["Phone"]; ?></td>   
+            <td><?php echo $row["Shop"]; ?></td>
+            <td><?php echo $row["Idnumber"]; ?></td>   
+            <td><?php echo $row["Role"]; ?></td>                                              
+            </tr>     
+            <?php     
+                };    
+            ?>     
+          </tbody>
+     </table>
+
+<!-- pages -->
+<div class="pagination">    
+      <?php  
+        $query = "SELECT COUNT(*) FROM tblregister";     
+        $rs_result = mysqli_query($conn, $query);     
+        $row = mysqli_fetch_row($rs_result);     
+        $total_records = $row[0];     
+          
+    echo "</br>";     
+        // Number of pages required.   
+        $total_pages = ceil($total_records / $per_page_record);     
+        $pagLink = "";       
+      
+        if($page>=2){   
+            echo "<a href='register.php?page=".($page-1)."'>  Prev </a>";   
+        }       
+                   
+        for ($i=1; $i<=$total_pages; $i++) {   
+          if ($i == $page) {   
+              $pagLink .= "<a class = 'active' href='register.php?page="  
+                                                .$i."'>".$i." </a>";   
+          }               
+          else  {   
+              $pagLink .= "<a href='register.php?page=".$i."'>   
+                                                ".$i." </a>";     
+          }   
+        };     
+        echo $pagLink;   
+  
+        if($page<$total_pages){   
+            echo "<a href='register.php?page=".($page+1)."'>  Next </a>";   
+        }   
+  
+      ?>    
+      </div>  
+  
+  
+      <div class="inline">   
+      <input id="page" type="number" min="1" max="<?php echo $total_pages?>"   
+      placeholder="<?php echo $page."/".$total_pages; ?>" required>   
+      <button onClick="go2Page();">Go</button>   
+     </div>    
+
+     <!-- end of pages -->
+
+
   </div>
 </div>
 
@@ -330,5 +407,15 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <h3></h3>
 </div>
 
+
+
+  <script>   
+    function go2Page()   
+    {   
+        var page = document.getElementById("page").value;   
+        page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
+        window.location.href = 'register.php?page='+page;   
+    }   
+  </script>  
 </body>
 </html>
