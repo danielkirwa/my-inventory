@@ -110,3 +110,10 @@
     .pagination a:hover:not(.active) {   
         background-color: skyblue;   
     } 
+       .inline{   
+            display: inline-block;   
+            float: right;   
+            margin: 20px 0px;   
+        }   
+         
+       

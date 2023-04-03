@@ -73,7 +73,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     
         $start_from = ($page-1) * $per_page_record;     
     
-        $query = "SELECT * FROM tblregister LIMIT $start_from, $per_page_record";     
+        $query = "SELECT * FROM tbluser LIMIT $start_from, $per_page_record";     
         $rs_result = mysqli_query ($conn, $query);    
 
 
@@ -86,45 +86,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 
   // get data to insert
-  if(isset($_POST['addstaff'])){
-    $newfirstname = $_POST['firstname'];
-    $newothername = $_POST['othername'];
-    $newidnumber = $_POST['idnumber'];
-    $newphone = $_POST['phone'];
-    $newemail = $_POST['email'];
-    $newotherphone = $_POST['otherphone'];
-    $newdateofbirth = $_POST['dateofbirth'];
-    $newrole;
-    $newgender;
-    $newstation;
-     $newdate =  date("Y-m-d");
- if(!empty($_POST['station']) && !empty($_POST['role']) && !empty($_POST['gender'])){
-        $newstation = $_POST['station'];
-        $newgender = $_POST['gender'];
-        $newrole = $_POST['role'];
-        if(!empty($_POST['firstname']) && !empty($_POST['idnumber']) && !empty($_POST['phone'])) {
-         $newregistersql = "INSERT INTO tblregister (Firstname, Othername,Email,Phone,Otherphone,Idnumber,Dateofbirth,Role,Gender,Shop,Createdby,Datecreated)
-            VALUES ('{$newfirstname}','{$newothername}','{$newemail}','{$newphone}','{$newotherphone}','{$newidnumber}','{$newdateofbirth}','{$newrole}','{$newgender}','{$newstation}', '{$currentUser}','{$newdate}')";
+  if(isset($_POST['searchaccount'])){
 
-
-              if ($conn->query($newregistersql) === TRUE) {
-                 echo "New record created successfully";
-              } else {
-                echo "Error: " . $newregistersql . "<br>" . $conn->messaeg;
-              }
-       
-        
-    }else{
-       echo "<script>alert('Please Fill in The First name, ID number and Phone number');</script>";
-    }
-    } else {
-      echo "<script>alert('Please select the Role, Station and Gender');</script>";
-    }
- 
+if($_POST['email'] != ""){
+            $newEmail = $_POST['email'];
+         
+            $query = "SELECT  * FROM tblregister WHERE Email ='$newEmail' OR Idnumber='$newEmail'"; 
+                $result = mysqli_query ($conn, $query);    
 
 
 
+       if($result== true){ 
+ if ($result->num_rows > 0) {
+    $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
+ } else {
+    echo "No Data Found"; 
+ }
+}else{
+  echo  mysqli_error($db);
+}
 
+
+
+}
+
+    
+          
   }
 
 
@@ -137,7 +124,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Register</title>
+	<title>Accounts</title>
 
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
@@ -178,9 +165,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <div class="subnav">
     <button class="subnavbtn" style=" background:  #0067a0;">Register <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#">Add Staff</a>
+      <a href="#register.php">Add Staff</a>
       <a href="#link2">Add Role</a>
-      <a href="createaccount.php">Create Acount</a>
+      <a href="#">Create Acount</a>
     </div>
   </div>
   <div class="subnav">
@@ -203,21 +190,50 @@ if (isset($_SERVER['QUERY_STRING'])) {
   </div>
 </div>
 <!-- end of nav bar -->
+
+<!-- search account to add -->
+
 <div class="action-div">
-  <form action="register.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Staff management</h3></center>
+  <form action="createaccount.php" method="POST" name="" id="submitform">
+   <center><h3 class="my-label">Search Staff</h3></center>
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Entet ID/Email</label><br>
+          <input type="text" name="email" placeholder="Enter ID or Email" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+         <center>
+          <br>
+          <input type="submit" name="searchaccount" value="Search now" class="my-btn">
+          </center>
+
+      </div>
+   </div>
+
+
+</form>
+</div>
+
+<br>
+<!-- add account form -->
+<div class="action-div">
+  <form action="createaccount.php" method="POST" name="" id="submitform">
+	 <center><h3 class="my-label">Account management</h3></center>
 
 	 <div class="input-holder">
       <div class="card">
       	<center>
-          <label class="small-label">First Name</label><br>
-          <input type="text" name="firstname" placeholder="Enter First Name" class="my-input">
+          <label class="small-label">Holders Name</label><br>
+          <label>name</label>
           </center>
       </div>
       <div class="card">
       	<center>
-      	<label class="small-label">Other Name</label><br>
-          <input type="text" name="othername" placeholder="Enter Other Name" class="my-input">
+      	<label class="small-label">Holder email</label><br>
+         <label>email</label>
           </center>
       </div>
    </div>
@@ -225,82 +241,32 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <div class="input-holder">
       <div class="card">
       	<center>
-          <label class="small-label">ID Number</label><br>
-          <input type="text" name="idnumber" placeholder="Enter ID Number" class="my-input">
+          <label class="small-label">ID/Phone</label><br>
+         
+                
+            <label></label><br>
+            <label></label>  
+
+         
           </center>
       </div>
       <div class="card">
       	<center>
-      	<label class="small-label">Phone Number</label><br>
-          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
+      	<label class="small-label">Role/Station</label><br>
+         <label>Role</label><br>
+         <label>Station</label>
           </center>
       </div>
    </div>
 
-    <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">Email </label><br>
-          <input type="text" name="email" placeholder="Enter ID Number" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Other Number</label><br>
-          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
-          </center>
-      </div>
-   </div>
- 
-    <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">Role</label><br>
-           <select class="my-input" name="role">
-            <option value="" disabled selected>Choose Role</option>
-           	<option value="Cashier">Cashier</option>
-           	<option value="SalesLead">Sales Lead</option>
-           	<option value="Admin">Admin</option>
-            <option value="Casual">Casual</option>
-           </select>
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Gender</label><br>
-          <select class="my-input" name="gender">
-            <option value="" disabled selected>Choose Gender</option>
-           	<option value="Male">Male</option>
-           	<option value="Female">Female</option>
-           </select>
-          </center>
-      </div>
-   </div>
 
-     <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">Work Station</label><br>
-           <select class="my-input" name="station">
-            <option value="" disabled selected>Choose Station</option>
-           	<option value="MainStation">Main Station</option>
-           	<option value="Branch">Branch </option>
-           </select>
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      		<label class="small-label">Birth Date</label><br>
-      		<input type="date" name="dateofbirth" class="my-input">
-      	</center>
-      </div>
-   </div>
+
 
 
    <div class="input-holder">
       <div class="card">
       	<center>
-          <input type="submit" name="addstaff" value="Save Staff" class="my-btn">
+          <input type="submit" name="addaccount" value="Create Account" class="my-btn">
           </center>
       </div>
       <div class="card">
@@ -318,16 +284,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <div class="scroll-table">
   <div class="table-holder">
     <div class="table-caption">
-      <label class="my-label">List of staff  </label>
+      <label class="my-label">List of Accounts/Roles  </label>
     </div>
   <table>
     <thead>
-      <th>First Name</th>
-      <th>Email </th>
-      <th>Phone</th>
-      <th>Station</th>
-      <th>ID Number</th>
-      <th>Role</th>
+      <th>Account Name</th>
+      <th>Role </th>
+      <th>Status</th>
     </thead>
     <tbody>   
     <?php     
@@ -335,12 +298,17 @@ if (isset($_SERVER['QUERY_STRING'])) {
                   // Display each field of the records.    
             ?>     
             <tr>     
-             <td><?php echo $row["Firstname"]; ?></td>     
-            <td><?php echo $row["Email"]; ?></td>   
-            <td><?php echo $row["Phone"]; ?></td>   
-            <td><?php echo $row["Shop"]; ?></td>
-            <td><?php echo $row["Idnumber"]; ?></td>   
-            <td><?php echo $row["Role"]; ?></td>                                              
+             <td><?php echo $row["Username"]; ?></td>     
+            <td><?php echo $row["Privilege"]; ?></td>   
+            <td><?php 
+            if ($row["Status"] == 1) {
+              // code...
+              echo "Active";
+            }else{
+              echo "Closed";
+            }
+
+             ?></td>                                                
             </tr>     
             <?php     
                 };    
@@ -351,7 +319,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <!-- pages -->
 <div class="pagination">    
       <?php  
-        $query = "SELECT COUNT(*) FROM tblregister";     
+        $query = "SELECT COUNT(*) FROM tbluser";     
         $rs_result = mysqli_query($conn, $query);     
         $row = mysqli_fetch_row($rs_result);     
         $total_records = $row[0];     
@@ -362,23 +330,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='register.php?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='createaccount.php?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='register.php?page="  
+              $pagLink .= "<a class = 'active' href='createaccount.php?page="  
                                                 .$i."'>".$i." </a>";   
           }               
           else  {   
-              $pagLink .= "<a href='register.php?page=".$i."'>   
+              $pagLink .= "<a href='createaccount.php?page=".$i."'>   
                                                 ".$i." </a>";     
           }   
         };     
         echo $pagLink;   
   
         if($page<$total_pages){   
-            echo "<a href='register.php?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='createaccount.php?page=".($page+1)."'>  Next </a>";   
         }   
   
       ?>    
@@ -414,7 +382,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'register.php?page='+page;   
+        window.location.href = 'createaccount.php?page='+page;   
     }   
   </script>  
 </body>
