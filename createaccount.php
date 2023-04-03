@@ -92,27 +92,14 @@ if($_POST['email'] != ""){
             $newEmail = $_POST['email'];
          
             $query = "SELECT  * FROM tblregister WHERE Email ='$newEmail' OR Idnumber='$newEmail'"; 
-                $result = mysqli_query ($conn, $query);    
+                $searchresult = mysqli_query ($conn, $query);    
 
 
-
-       if($result== true){ 
- if ($result->num_rows > 0) {
-    $row= mysqli_fetch_all($result, MYSQLI_ASSOC);
- } else {
-    echo "No Data Found"; 
- }
-}else{
-  echo  mysqli_error($db);
-}
-
-
-
-}
+               }  
 
     
           
-  }
+        }
 
 
  ?>
@@ -242,12 +229,24 @@ if($_POST['email'] != ""){
       <div class="card">
       	<center>
           <label class="small-label">ID/Phone</label><br>
-         
-                
-            <label></label><br>
-            <label></label>  
+             
+           <?php  
+           if(isset($_POST['searchaccount'])){
+   
+            while($row = $searchresult->fetch_assoc()) { 
+                  // Display each field of the records.
+              
+            ?>     
+               
+                 <label><?php echo "ID:  ".$row["Idnumber"]; ?></label><br>
+            <label><?php echo "Phone :  ".$row["Phone"]; ?></label>                                           
+              
+            <?php     
+                }; 
+                };   
+            ?> 
 
-         
+                
           </center>
       </div>
       <div class="card">
