@@ -208,19 +208,30 @@ if($_POST['email'] != ""){
 <!-- add account form -->
 <div class="action-div">
   <form action="createaccount.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Account management</h3></center>
+     <?php  
+           if(isset($_POST['searchaccount'])){
+
+            if ($isTouch = empty($searchresult)) {
+              // code...
+            }else{
+   
+            if($row = $searchresult->fetch_assoc()) { 
+                  // Display each field of the records.
+              
+            ?>   
+	 <center><h3 class="my-label"><?php echo  $row["Firstname"] ?> &nbsp; account management</h3></center>
 
 	 <div class="input-holder">
       <div class="card">
       	<center>
           <label class="small-label">Holders Name</label><br>
-          <label>name</label>
+          <label><?php echo "Full Name :  ".$row["Firstname"] . "  " .$row["Othername"] ; ?></label>
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Holder email</label><br>
-         <label>email</label>
+         <label><?php echo "Email :  ".$row["Email"]; ?></label>
           </center>
       </div>
    </div>
@@ -230,36 +241,27 @@ if($_POST['email'] != ""){
       	<center>
           <label class="small-label">ID/Phone</label><br>
              
-           <?php  
-           if(isset($_POST['searchaccount'])){
-   
-            while($row = $searchresult->fetch_assoc()) { 
-                  // Display each field of the records.
-              
-            ?>     
+            
                
                  <label><?php echo "ID:  ".$row["Idnumber"]; ?></label><br>
             <label><?php echo "Phone :  ".$row["Phone"]; ?></label>                                           
               
-            <?php     
-                }; 
-                };   
-            ?> 
-
+            
                 
           </center>
       </div>
       <div class="card">
       	<center>
       	<label class="small-label">Role/Station</label><br>
-         <label>Role</label><br>
-         <label>Station</label>
+         <label><?php echo "Role :  ".$row["Role"]; ?></label><br>
+         <label><?php echo "Station :  ".$row["Shop"]; ?></label>
           </center>
       </div>
    </div>
 
 
 
+           
 
 
    <div class="input-holder">
@@ -269,10 +271,16 @@ if($_POST['email'] != ""){
           </center>
       </div>
       <div class="card">
-      
-      	
+      	<center>
+         <label><?php echo "Default password is ID number :  ".$row["Idnumber"]; ?></label><br>
+          </center>
       </div>
    </div>
+             <?php     
+                }; 
+              };
+                };   
+            ?> 
 </form>
 </div>
 
