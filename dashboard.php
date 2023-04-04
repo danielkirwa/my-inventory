@@ -45,7 +45,7 @@ if ($_SESSION['username']) {
     <button class="subnavbtn">My Business <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
       <a href="#company">Add Business</a>
-      <a href="#team">Add Customer</a>
+      <a href="createcustomer.php">Add Customer</a>
       <a href="#careers">Add Supplier</a>
     </div>
   </div> 
