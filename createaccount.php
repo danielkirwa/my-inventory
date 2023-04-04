@@ -81,7 +81,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 ?>
 
 
-
+<!-- serach account to create -->
 <?php 
 
 
@@ -91,18 +91,52 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if($_POST['email'] != ""){
             $newEmail = $_POST['email'];
          
-            $query = "SELECT  * FROM tblregister WHERE Email ='$newEmail' OR Idnumber='$newEmail'"; 
+            $query = "SELECT  * FROM tblregister WHERE Email ='$newEmail' OR Idnumber='$newEmail'";
                 $searchresult = mysqli_query ($conn, $query);    
-
-
-               }  
-
-    
-          
+               } 
         }
 
 
  ?>
+
+  <!-- create new account -->
+
+  <?php 
+
+
+  // get data to insert
+  if(isset($_POST['addaccount'])){
+
+    $newusername = $_POST['username'];
+    $newpassword = md5($_POST['password']);
+    $newrole = $_POST['role'];
+  
+        if(!empty($newusername) && !empty( $newpassword) && !empty($newrole )) {
+         $newaccountsql = "INSERT INTO tbluser (Username, Password,Privilege,Status)
+            VALUES ('{$newusername}','{$newpassword}','{$newrole}',1)";
+
+
+              if ($conn->query($newaccountsql) === TRUE) {
+                  echo "<script>alert('New account created successfully');</script>";
+              } else {
+                echo "Error: " . $newaccountsql . "<br>" . $conn->messaeg;
+              }
+       
+        
+    }else{
+       echo "<script>alert('Please select the user form register first');</script>";
+    }
+   
+ 
+
+
+
+
+  }
+
+
+ ?>
+
 
 
 
@@ -231,6 +265,7 @@ if($_POST['email'] != ""){
       <div class="card">
       	<center>
       	<label class="small-label">Holder email</label><br>
+        <input type="hidden" name="username" value="<?php echo $row["Email"]; ?>">
          <label><?php echo "Email :  ".$row["Email"]; ?></label>
           </center>
       </div>
@@ -242,8 +277,8 @@ if($_POST['email'] != ""){
           <label class="small-label">ID/Phone</label><br>
              
             
-               
-                 <label><?php echo "ID:  ".$row["Idnumber"]; ?></label><br>
+               <input type="hidden" name="password" value="<?php echo $row["Idnumber"]; ?>">
+                 <label><?php echo "ID : ".$row["Idnumber"]; ?></label><br>
             <label><?php echo "Phone :  ".$row["Phone"]; ?></label>                                           
               
             
@@ -253,6 +288,7 @@ if($_POST['email'] != ""){
       <div class="card">
       	<center>
       	<label class="small-label">Role/Station</label><br>
+        <input type="hidden" name="role" value="<?php echo $row["Role"]; ?>">
          <label><?php echo "Role :  ".$row["Role"]; ?></label><br>
          <label><?php echo "Station :  ".$row["Shop"]; ?></label>
           </center>
