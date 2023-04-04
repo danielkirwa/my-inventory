@@ -68,7 +68,7 @@ if ($_SESSION['username']) {
     <div class="subnav-content">
       <a href="register.php">Add Staff</a>
       <a href="#link2">Add Role</a>
-      <a href="createaccount">Create Acount</a>
+      <a href="createaccount.php">Create Acount</a>
     </div>
   </div>
   <div class="subnav">
