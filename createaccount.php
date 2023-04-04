@@ -110,7 +110,8 @@ if($_POST['email'] != ""){
     $newusername = $_POST['username'];
     $newpassword = md5($_POST['password']);
     $newrole = $_POST['role'];
-  
+     
+     try{
         if(!empty($newusername) && !empty( $newpassword) && !empty($newrole )) {
          $newaccountsql = "INSERT INTO tbluser (Username, Password,Privilege,Status)
             VALUES ('{$newusername}','{$newpassword}','{$newrole}',1)";
@@ -118,21 +119,27 @@ if($_POST['email'] != ""){
 
               if ($conn->query($newaccountsql) === TRUE) {
                   echo "<script>alert('New account created successfully');</script>";
-              } else {
-                echo "Error: " . $newaccountsql . "<br>" . $conn->messaeg;
-              }
-       
-        
-    }else{
+              } 
+            }else{
        echo "<script>alert('Please select the user form register first');</script>";
     }
-   
- 
+          }catch (mysqli_sql_exception $e) {
+    if ($e->getCode() == 1062) {
+        // Duplicate user
+      echo "<script>alert('Account exist');</script>";
+      header("Refresh:0; url=createaccount.php");
+    } else {
+        throw $e;// in case it's any other error
+    }
+
+             
+     }
+       
+        
+  
 
 
-
-
-  }
+  }  
 
 
  ?>
