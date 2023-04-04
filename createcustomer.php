@@ -86,31 +86,31 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 
   // get data to insert
-  if(isset($_POST['addstaff'])){
+  if(isset($_POST['addcustomer'])){
     $newfirstname = $_POST['firstname'];
     $newothername = $_POST['othername'];
     $newidnumber = $_POST['idnumber'];
     $newphone = $_POST['phone'];
     $newemail = $_POST['email'];
     $newotherphone = $_POST['otherphone'];
-    $newdateofbirth = $_POST['dateofbirth'];
-    $newrole;
+    $newregion = $_POST['region'];
+    $newdistrict = $_POST['district'];
+    $newtown = $_POST['town'];
+    $newrvillage = $_POST['village'];
     $newgender;
-    $newstation;
      $newdate =  date("Y-m-d");
- if(!empty($_POST['station']) && !empty($_POST['role']) && !empty($_POST['gender'])){
-        $newstation = $_POST['station'];
+ if(!empty($_POST['gender'])){
         $newgender = $_POST['gender'];
-        $newrole = $_POST['role'];
-        if(!empty($_POST['firstname']) && !empty($_POST['idnumber']) && !empty($_POST['phone'])) {
-         $newregistersql = "INSERT INTO tblregister (Firstname, Othername,Email,Phone,Otherphone,Idnumber,Dateofbirth,Role,Gender,Shop,Createdby,Datecreated)
-            VALUES ('{$newfirstname}','{$newothername}','{$newemail}','{$newphone}','{$newotherphone}','{$newidnumber}','{$newdateofbirth}','{$newrole}','{$newgender}','{$newstation}', '{$currentUser}','{$newdate}')";
+        if(!empty($_POST['firstname']) && !empty($_POST['idnumber']) && !empty($_POST['phone'])  && !empty($_POST['village'])) {
+         $newcustomersql = "INSERT INTO tblcustomer (Firstname, Othername,Email,Phone,Otherphone,Idnumber,Locationregion,Locationdistrict,Locationtown,Locationvillage,Gender,Status,Createdby,Dateadded)
+            VALUES ('{$newfirstname}','{$newothername}','{$newemail}','{$newphone}','{$newotherphone}','{$newidnumber}','{$newregion}','{$newdistrict}','{$newtown}','{$newrvillage}','{$newgender}', 1 , '{$currentUser}','{$newdate}')";
 
 
-              if ($conn->query($newregistersql) === TRUE) {
-                 echo "New record created successfully";
+              if ($conn->query($newcustomersql) === TRUE) {
+                 echo "<script>alert('New customer added successfully');</script>";
+                  header("Refresh:0; url=createaccount.php");
               } else {
-                echo "Error: " . $newregistersql . "<br>" . $conn->messaeg;
+                echo "Error: " . $newcustomersql . "<br>" . $conn->messaeg;
               }
        
         
@@ -346,7 +346,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
             <td><?php echo $row["Phone"]; ?></td>   
             <td><?php echo $row["Locationdistrict"]; ?></td>
             <td><?php echo $row["Gender"]; ?></td>   
-            <td><?php echo $row["Status"];
+            <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
                     echo "Active";

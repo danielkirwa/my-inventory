@@ -157,7 +157,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     <button class="subnavbtn">My Business <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
       <a href="#company">Add Business</a>
-      <a href="createcustomer">Add Customer</a>
+      <a href="createcustomer.php">Add Customer</a>
       <a href="#careers">Add Supplier</a>
     </div>
   </div> 
