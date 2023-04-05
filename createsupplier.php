@@ -73,7 +73,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     
         $start_from = ($page-1) * $per_page_record;     
     
-        $query = "SELECT * FROM tblcustomer LIMIT $start_from, $per_page_record";     
+        $query = "SELECT * FROM tblsupplier LIMIT $start_from, $per_page_record";     
         $rs_result = mysqli_query ($conn, $query);    
 
 
@@ -86,39 +86,38 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 
   // get data to insert
-  if(isset($_POST['addcustomer'])){
-    $newfirstname = $_POST['firstname'];
-    $newothername = $_POST['othername'];
-    $newidnumber = $_POST['idnumber'];
+  if(isset($_POST['addsupplier'])){
+    $newname = $_POST['firstname'];
+    $newaddress = $_POST['address'];
     $newphone = $_POST['phone'];
     $newemail = $_POST['email'];
     $newotherphone = $_POST['otherphone'];
     $newregion = $_POST['region'];
     $newdistrict = $_POST['district'];
     $newtown = $_POST['town'];
-    $newrvillage = $_POST['village'];
-    $newgender;
+    $newcode = $_POST['code'];
+    $newtype;
      $newdate =  date("Y-m-d");
- if(!empty($_POST['gender'])){
-        $newgender = $_POST['gender'];
-        if(!empty($_POST['firstname']) && !empty($_POST['idnumber']) && !empty($_POST['phone'])  && !empty($_POST['village'])) {
-         $newcustomersql = "INSERT INTO tblcustomer (Firstname, Othername,Email,Phone,Otherphone,Idnumber,Locationregion,Locationdistrict,Locationtown,Locationvillage,Gender,Status,Createdby,Dateadded)
-            VALUES ('{$newfirstname}','{$newothername}','{$newemail}','{$newphone}','{$newotherphone}','{$newidnumber}','{$newregion}','{$newdistrict}','{$newtown}','{$newrvillage}','{$newgender}', 1 , '{$currentUser}','{$newdate}')";
+ if(!empty($_POST['type'])){
+        $newtype = $_POST['type'];
+        if(!empty($_POST['firstname']) && !empty($_POST['phone']) && !empty($_POST['code'])  && !empty($_POST['village'])) {
+         $newsuppliersql = "INSERT INTO tblsupplier (Suppliername, Supplierphone,Supplierotherphone,Supplieremal,Supplieraddress,Supplierregion,Supplierdistrict,Suppliertown,Suppliertype,Datecreated,Status,Createdby)
+            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}'1 ,'{$currentUser}',)";
 
 
-              if ($conn->query($newcustomersql) === TRUE) {
-                 echo "<script>alert('New customer added successfully');</script>";
-                  header("Refresh:0; url=createaccount.php");
+              if ($conn->query($newsuppliersql) === TRUE) {
+                 echo "<script>alert('New Supplier added successfully');</script>";
+                  header("Refresh:0; url=creatsupplier.php");
               } else {
-                echo "Error: " . $newcustomersql . "<br>" . $conn->messaeg;
+                echo "Error: " . $newsuppliersql . "<br>" . $conn->messaeg;
               }
        
         
     }else{
-       echo "<script>alert('Please Fill in The First name, ID number and Phone number');</script>";
+       echo "<script>alert('Please Fill in The Supplier name, Code and Phone number');</script>";
     }
     } else {
-      echo "<script>alert('Please select the Role, Station and Gender');</script>";
+      echo "<script>alert('Please select the Type of the supplier');</script>";
     }
  
 
@@ -204,20 +203,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
 </div>
 <!-- end of nav bar -->
 <div class="action-div">
-  <form action="createcustomer.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Customer management</h3></center>
+  <form action="createsupplier.php" method="POST" name="" id="submitform">
+	 <center><h3 class="my-label">Supplier management</h3></center>
 
 	 <div class="input-holder">
       <div class="card">
       	<center>
           <label class="small-label">First Name</label><br>
-          <input type="text" name="firstname" placeholder="Enter First Name" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Other Name</label><br>
-          <input type="text" name="othername" placeholder="Enter Other Name" class="my-input">
+          <input type="text" name="firstname" placeholder="Enter supplier name" class="my-input">
           </center>
       </div>
    </div>
@@ -225,14 +218,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <div class="input-holder">
       <div class="card">
       	<center>
-          <label class="small-label">ID Number</label><br>
-          <input type="text" name="idnumber" placeholder="Enter ID Number" class="my-input">
+          <label class="small-label">Phone Number</label><br>
+          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
           </center>
       </div>
       <div class="card">
       	<center>
-      	<label class="small-label">Phone Number</label><br>
-          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
+      	<label class="small-label">Other Number</label><br>
+          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
           </center>
       </div>
    </div>
@@ -246,8 +239,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
       </div>
       <div class="card">
       	<center>
-      	<label class="small-label">Other Number</label><br>
-          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
+      	<label class="small-label">Address</label><br>
+          <input type="text" name="address" placeholder="Add address" class="my-input">
           </center>
       </div>
    </div>
@@ -255,11 +248,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
     <div class="input-holder">
             <div class="card">
       	<center>
-      	<label class="small-label">Gender</label><br>
-          <select class="my-input" name="gender">
-            <option value="" disabled selected>Choose Gender</option>
-           	<option value="Male">Male</option>
-           	<option value="Female">Female</option>
+      	<label class="small-label">Supplier Type</label><br>
+          <select class="my-input" name="type">
+            <option value="" disabled selected>Choose Type</option>
+           	<option value="Individual">Individual</option>
+           	<option value="Company">Company</option>
+            <option value="Organization">Organization</option>
+            <option value="Government">Government</option>
            </select>
           </center>
       </div>
@@ -295,8 +290,8 @@ if (isset($_SERVER['QUERY_STRING'])) {
           </center>
       </div>
       <div class="card">
-       <label class="small-label">Village/Home</label><br>
-          <input type="text" name="village" placeholder="Village/home" class="my-input">
+       <label class="small-label">Supplier Code</label><br>
+          <input type="text" name="code" placeholder="Enter code S001-2023" class="my-input">
           </center>
         
       </div>
@@ -306,7 +301,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <div class="input-holder">
       <div class="card">
       	<center>
-          <input type="submit" name="addcustomer" value="Save Custoner" class="my-btn">
+          <input type="submit" name="addsupplier" value="Save Supplier" class="my-btn">
           </center>
       </div>
       <div class="card">
@@ -324,15 +319,15 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <div class="scroll-table">
   <div class="table-holder">
     <div class="table-caption">
-      <label class="my-label">List of staff  </label>
+      <label class="my-label">List of Suppliers  </label>
     </div>
   <table>
     <thead>
-      <th>First Name</th>
+      <th>Supplier Name</th>
       <th>Email </th>
       <th>Phone</th>
-      <th>District</th>
-      <th>Gender</th>
+      <th>Location</th>
+      <th>Type</th>
       <th>Status</th>
     </thead>
     <tbody>   
@@ -341,11 +336,11 @@ if (isset($_SERVER['QUERY_STRING'])) {
                   // Display each field of the records.    
             ?>     
             <tr>     
-             <td><?php echo $row["Firstname"]; ?></td>     
-            <td><?php echo $row["Email"]; ?></td>   
-            <td><?php echo $row["Phone"]; ?></td>   
-            <td><?php echo $row["Locationdistrict"]; ?></td>
-            <td><?php echo $row["Gender"]; ?></td>   
+             <td><?php echo $row["Suppliername"]; ?></td>     
+            <td><?php echo $row["Supplieremal"]; ?></td>   
+            <td><?php echo $row["Supplierphone"]; ?></td>   
+            <td><?php echo $row["Suppliertown"]; ?></td>
+            <td><?php echo $row["Suppliertype"]; ?></td>   
             <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
@@ -364,7 +359,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <!-- pages -->
 <div class="pagination">    
       <?php  
-        $query = "SELECT COUNT(*) FROM tblcustomer";     
+        $query = "SELECT COUNT(*) FROM tblsupplier";     
         $rs_result = mysqli_query($conn, $query);     
         $row = mysqli_fetch_row($rs_result);     
         $total_records = $row[0];     
@@ -375,23 +370,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='createcustomer.php?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='creatsupplier.php?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='createcustomer.php?page="  
+              $pagLink .= "<a class = 'active' href='creatsupplier.php?page="  
                                                 .$i."'>".$i." </a>";   
           }               
           else  {   
-              $pagLink .= "<a href='createcustomer.php?page=".$i."'>   
+              $pagLink .= "<a href='creatsupplier.php?page=".$i."'>   
                                                 ".$i." </a>";     
           }   
         };     
         echo $pagLink;   
   
         if($page<$total_pages){   
-            echo "<a href='createcustomer.php?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='creatsupplier.php?page=".($page+1)."'>  Next </a>";   
         }   
   
       ?>    
@@ -427,7 +422,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'createcustomer.php?page='+page;   
+        window.location.href = 'creatsupplier.php?page='+page;   
     }   
   </script>  
 </body>
