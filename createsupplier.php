@@ -100,14 +100,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
      $newdate =  date("Y-m-d");
  if(!empty($_POST['type'])){
         $newtype = $_POST['type'];
-        if(!empty($_POST['firstname']) && !empty($_POST['phone']) && !empty($_POST['code'])  && !empty($_POST['village'])) {
+        if(!empty($_POST['firstname']) && !empty($_POST['phone']) && !empty($_POST['code'])  && !empty($_POST['town'])) {
          $newsuppliersql = "INSERT INTO tblsupplier (Suppliername, Supplierphone,Supplierotherphone,Supplieremal,Supplieraddress,Supplierregion,Supplierdistrict,Suppliertown,Suppliertype,Datecreated,Status,Createdby)
-            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}'1 ,'{$currentUser}',)";
+            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}',1 ,'{$currentUser}')";
 
 
               if ($conn->query($newsuppliersql) === TRUE) {
                  echo "<script>alert('New Supplier added successfully');</script>";
-                  header("Refresh:0; url=creatsupplier.php");
+                  header("Refresh:0; url=createsupplier.php");
               } else {
                 echo "Error: " . $newsuppliersql . "<br>" . $conn->messaeg;
               }
