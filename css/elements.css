@@ -38,6 +38,11 @@
     color: #ff6a13;
 
 }
+.my-textarea{
+  width: 500px;
+ min-width: 300px;
+ min-height: 90px;
+}
 .small-label{
     font-size: 18px;
     font-weight: bold;

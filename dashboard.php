@@ -40,11 +40,11 @@ if ($_SESSION['username']) {
 </div>
 <!-- nav -->
 <div class="navbar">
-	  <a href="#home"  style=" background:  #0067a0;">Dashboard</a>
+	  <a href="dashboard.php"  style=" background:  #0067a0;">Dashboard</a>
   <div class="subnav">
     <button class="subnavbtn">My Business <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#company">Add Business</a>
+      <a href="createbusiness.php">Add Business</a>
       <a href="createcustomer.php">Add Customer</a>
       <a href="createsupplier.php">Add Supplier</a>
     </div>
@@ -52,22 +52,22 @@ if ($_SESSION['username']) {
   <div class="subnav">
     <button class="subnavbtn">Product <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#bring">Add Product</a>
-      <a href="#deliver">Add Units</a>
+      <a href="createproduct.php">Add Product</a>
+      <a href="createunits.php">Add Units</a>
     </div>
   </div> 
   <div class="subnav">
     <button class="subnavbtn">Stock <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#link1">Add Stock</a>
-      <a href="#link2">Adjust Stock</a>
+      <a href="createstock.php">Add Stock</a>
+      <a href="adjuststock.php">Adjust Stock</a>
     </div>
   </div>
    <div class="subnav">
     <button class="subnavbtn">Register <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
       <a href="register.php">Add Staff</a>
-      <a href="#link2">Add Role</a>
+      <a href="createrole.php">Add Role</a>
       <a href="createaccount.php">Create Acount</a>
     </div>
   </div>
@@ -80,12 +80,12 @@ if ($_SESSION['username']) {
       <a href="#link4">Sales Report</a>
     </div>
   </div>
-  <a href="#contact">Settings</a>
-  <a href="#contact">Sale Desk</a>
+  <a href="setting.php">Settings</a>
+  <a href="saledesk.php">Sale Desk</a>
   <div class="subnav">
     <button class="subnavbtn"><?php echo $currentUser; ?><i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
-      <a href="#link1">Profile</a>
+      <a href="profile.php">Profile</a>
       <a href="logout.php">Logout</a>
     </div>
   </div>
