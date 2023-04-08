@@ -96,25 +96,25 @@ if (isset($_SERVER['QUERY_STRING'])) {
     $newunit;
      $newdate =  date("Y-m-d");
  if(!empty($_POST['unit'])){
-        $newtype = $_POST['unit'];
+        $newunit = $_POST['unit'];
         if(!empty($_POST['stockname']) && !empty($_POST['code']) && !empty($_POST['unitsale'])  && !empty($_POST['unitcount'])) {
-         $newstocksql = "INSERT INTO tblstock (Suppliername, Supplierphone,Supplierotherphone,Supplieremal,Supplieraddress,Supplierregion,Supplierdistrict,Suppliertown,Suppliertype,Datecreated,Status,Createdby,Suppliercode)
-            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}',1 ,'{$currentUser}','$newcode')";
+         $newstocksql = "INSERT INTO tblstock (Stockname, Stockcode,Description,Unitcode,Unitcount,Saleunits,Cleardate,Status,Dateadded,Createdby)
+            VALUES ('{$newname}','{$newcode}','{$newdescription}','{$newunit}','{$newunitcount}','{$newunitsale}','{$newclearby}',1,'{$newdate}','{$currentUser}')";
 
 
-              if ($conn->query($newsuppliersql) === TRUE) {
-                 echo "<script>alert('New Supplier added successfully');</script>";
-                  header("Refresh:0; url=createsupplier.php");
+              if ($conn->query($newstocksql) === TRUE) {
+                 echo "<script>alert('New Stock added successfully');</script>";
+                  header("Refresh:0; url=createstock.php");
               } else {
-                echo "Error: " . $newsuppliersql . "<br>" . $conn->messaeg;
+                echo "Error: " . $newstocksql . "<br>" . $conn->messaeg;
               }
        
         
     }else{
-       echo "<script>alert('Please Fill in The Supplier name, Code and Phone number');</script>";
+       echo "<script>alert('Please Fill in the Stock name, Code and unit sale number');</script>";
     }
     } else {
-      echo "<script>alert('Please select the Type of the supplier');</script>";
+      echo "<script>alert('Please select the units');</script>";
     }
  
   }
@@ -290,11 +290,11 @@ if (isset($_SERVER['QUERY_STRING'])) {
     </div>
   <table>
     <thead>
-      <th>Supplier Name</th>
-      <th>Email </th>
-      <th>Phone</th>
-      <th>Location</th>
-      <th>Type</th>
+      <th>Stock Name</th>
+      <th>Sale Units </th>
+      <th>Code</th>
+      <th>Measure</th>
+      <th>Clear by</th>
       <th>Status</th>
     </thead>
     <tbody>   
@@ -303,11 +303,11 @@ if (isset($_SERVER['QUERY_STRING'])) {
                   // Display each field of the records.    
             ?>     
             <tr>     
-             <td><?php echo $row["Suppliername"]; ?></td>     
-            <td><?php echo $row["Supplieremal"]; ?></td>   
-            <td><?php echo $row["Supplierphone"]; ?></td>   
-            <td><?php echo $row["Suppliertown"]; ?></td>
-            <td><?php echo $row["Suppliertype"]; ?></td>   
+             <td><?php echo $row["Stockname"]; ?></td>     
+            <td><?php echo $row["Saleunits"]; ?></td>   
+            <td><?php echo $row["Stockcode"]; ?></td>   
+            <td><?php echo $row["Unitcode"]; ?></td>
+            <td><?php echo $row["Cleardate"]; ?></td>   
             <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
