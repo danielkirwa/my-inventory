@@ -73,7 +73,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     
         $start_from = ($page-1) * $per_page_record;     
     
-        $query = "SELECT * FROM tblsupplier LIMIT $start_from, $per_page_record";     
+        $query = "SELECT * FROM tblstockadjust LIMIT $start_from, $per_page_record";     
         $rs_result = mysqli_query ($conn, $query);    
 
 
@@ -81,68 +81,88 @@ if (isset($_SERVER['QUERY_STRING'])) {
 ?>
 
 
-
+<!-- serach account to create -->
 <?php 
 
 
   // get data to insert
-  if(isset($_POST['addsupplier'])){
-    $newname = $_POST['firstname'];
-    $newaddress = $_POST['address'];
-    $newphone = $_POST['phone'];
-    $newemail = $_POST['email'];
-    $newotherphone = $_POST['otherphone'];
-    $newregion = $_POST['region'];
-    $newdistrict = $_POST['district'];
-    $newtown = $_POST['town'];
-    $newcode = $_POST['code'];
-    $newtype;
-     $newdate =  date("Y-m-d");
- if(!empty($_POST['type'])){
-        $newtype = $_POST['type'];
-        if(!empty($_POST['firstname']) && !empty($_POST['phone']) && !empty($_POST['code'])  && !empty($_POST['town'])) {
-         $newsuppliersql = "INSERT INTO tblsupplier (Suppliername, Supplierphone,Supplierotherphone,Supplieremal,Supplieraddress,Supplierregion,Supplierdistrict,Suppliertown,Suppliertype,Datecreated,Status,Createdby)
-            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}',1 ,'{$currentUser}')";
+  if(isset($_POST['searchstock'])){
+
+if($_POST['code'] != ""){
+            $newCode = $_POST['code'];
+         
+            $query = "SELECT  * FROM tblstock WHERE Stockcode ='$newCode' OR Stockname='$newCode'";
+                $searchresult = mysqli_query ($conn, $query);    
+               } 
+        }
 
 
-              if ($conn->query($newsuppliersql) === TRUE) {
-                 echo "<script>alert('New Supplier added successfully');</script>";
-                  header("Refresh:0; url=createsupplier.php");
-              } else {
-                echo "Error: " . $newsuppliersql . "<br>" . $conn->messaeg;
-              }
+ ?>
+
+  <!-- create new account -->
+
+  <?php 
+
+
+  // get data to insert
+  if(isset($_POST['addaccount'])){
+
+    $newusername = $_POST['username'];
+    $newpassword = md5($_POST['password']);
+    $newrole = $_POST['role'];
+     
+     try{
+        if(!empty($newusername) && !empty( $newpassword) && !empty($newrole )) {
+         $newaccountsql = "INSERT INTO tbluser (Username, Password,Privilege,Status)
+            VALUES ('{$newusername}','{$newpassword}','{$newrole}',1)";
+
+
+              if ($conn->query($newaccountsql) === TRUE) {
+                  echo "<script>alert('New account created successfully');</script>";
+              } 
+            }else{
+       echo "<script>alert('Please select the user form register first');</script>";
+    }
+          }catch (mysqli_sql_exception $e) {
+    if ($e->getCode() == 1062) {
+        // Duplicate user
+      echo "<script>alert('Account exist');</script>";
+      header("Refresh:0; url=createaccount.php");
+    } else {
+        throw $e;// in case it's any other error
+    }
+
+             
+     }
        
         
-    }else{
-       echo "<script>alert('Please Fill in The Supplier name, Code and Phone number');</script>";
-    }
-    } else {
-      echo "<script>alert('Please select the Type of the supplier');</script>";
-    }
- 
-  }
+  
+
+
+  }  
 
 
  ?>
 
 
 
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Customer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accounts</title>
 
-		<link rel="stylesheet" type="text/css" href="css/index.css">
-	<link rel="stylesheet" type="text/css" href="css/nav.css">
-	<link rel="stylesheet" type="text/css" href="css/elements.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/nav.css">
+  <link rel="stylesheet" type="text/css" href="css/elements.css">
 </head>
 <body>
 <div>
     <div class="banner">
-    	<div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
-    	<div class="shop-name"><center><h3>Business name here</h3></center></div>
+      <div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
+      <div class="shop-name"><center><h3>Business name here</h3></center></div>
     </div>
 </div>
 <!-- nav -->
@@ -157,14 +177,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
     </div>
   </div> 
   <div class="subnav">
-    <button class="subnavbtn" style=" background:  #0067a0;">Product <i class="fa fa-caret-down"></i></button>
+    <button class="subnavbtn">Product <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
       <a href="createproduct.php">Add Product</a>
       <a href="createunits.php">Add Units</a>
     </div>
   </div> 
   <div class="subnav">
-    <button class="subnavbtn">Stock <i class="fa fa-caret-down"></i></button>
+    <button class="subnavbtn"  style=" background:  #0067a0;">Stock <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
       <a href="createstock.php">Add Stock</a>
       <a href="adjuststock.php">Adjust Stock</a>
@@ -198,113 +218,111 @@ if (isset($_SERVER['QUERY_STRING'])) {
   </div>
 </div>
 <!-- end of nav bar -->
+
+<!-- search account to add -->
+
 <div class="action-div">
-  <form action="createsupplier.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Product management</h3></center>
+  <form action="adjuststock.php" method="POST" name="" id="submitform">
+   <center><h3 class="my-label">Search Stock to adjust</h3></center>
 
-	 <div class="input-holder">
+   <div class="input-holder">
       <div class="card">
-      	<center>
-          <label class="small-label">First Name</label><br>
-          <input type="text" name="firstname" placeholder="Enter supplier name" class="my-input">
+        <center>
+          <label class="small-label">Entet Code/name</label><br>
+          <input type="text" name="code" placeholder="Enter Code or Name" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+         <center>
+          <br>
+          <input type="submit" name="searchstock" value="Search now" class="my-btn">
+          </center>
+
+      </div>
+   </div>
+
+
+</form>
+</div>
+
+<br>
+<!-- add account form -->
+<div class="action-div">
+  <form action="adjuststock.php" method="POST" name="" id="submitform">
+     <?php  
+           if(isset($_POST['searchstock'])){
+
+            if ($isTouch = empty($searchresult)) {
+              // code...
+            }else{
+   
+            if($row = $searchresult->fetch_assoc()) { 
+                  // Display each field of the records.
+              
+            ?>   
+   <center><h3 class="my-label"><?php echo  $row["Stockname"] ?> &nbsp; Stock information</h3></center>
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Stock Name</label><br>
+          <label><?php echo "Stock Name :  ".$row["Stockname"]; ?></label>
+          </center>
+      </div>
+      <div class="card">
+        <center>
+        <label class="small-label">Code</label><br>
+        <input type="hidden" name="code" value="<?php echo $row["Stockcode"]; ?>">
+         <label><?php echo "Code :  ".$row["Stockcode"]; ?></label>
           </center>
       </div>
    </div>
 
    <div class="input-holder">
       <div class="card">
-      	<center>
-          <label class="small-label">Phone Number</label><br>
-          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
+        <center>
+          <label class="small-label">Measure</label><br>
+             
+            
+               <input type="hidden" name="unitcode" value="<?php echo $row["Unitcode"]; ?>">
+                 <label><?php echo "Unit code : ".$row["Unitcode"]; ?></label>                                           
+              
+            
+                
           </center>
       </div>
       <div class="card">
-      	<center>
-      	<label class="small-label">Other Number</label><br>
-          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
+        <center>
+        <label class="small-label">Available units</label><br>
+        <input type="hidden" name="unitsale" value="<?php echo $row["Saleunits"]; ?>">
+         <label><?php echo "Available :  " ?></label><br>
+         <label><?php echo "Available sale :  ".$row["Saleunits"]; ?></label>
           </center>
       </div>
    </div>
 
-    <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">Email </label><br>
-          <input type="text" name="email" placeholder="Enter email" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Address</label><br>
-          <input type="text" name="address" placeholder="Add address" class="my-input">
-          </center>
-      </div>
-   </div>
- 
-    <div class="input-holder">
-            <div class="card">
-      	<center>
-      	<label class="small-label">Supplier Type</label><br>
-          <select class="my-input" name="type">
-            <option value="" disabled selected>Choose Type</option>
-           	<option value="Individual">Individual</option>
-           	<option value="Company">Company</option>
-            <option value="Organization">Organization</option>
-            <option value="Government">Government</option>
-           </select>
-          </center>
-      </div>
-        <div class="card">
-      
-        
-      </div>
 
 
-   </div>
-
-     <div class="input-holder">
-      <div class="card">
-      	<center>
-        <label class="small-label">Region</label><br>
-          <input type="text" name="region" placeholder="Region" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-        <label class="small-label">District</label><br>
-          <input type="text" name="district" placeholder="District" class="my-input">
-          </center>
-        </div>
-   </div>
-
-
-
-     <div class="input-holder">
-      <div class="card">
-        <label class="small-label">Town/Center</label><br>
-          <input type="text" name="town" placeholder="Town/center" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-       <label class="small-label">Supplier Code</label><br>
-          <input type="text" name="code" placeholder="Enter code S001-2023" class="my-input">
-          </center>
-        
-      </div>
-   </div>
+           
 
 
    <div class="input-holder">
       <div class="card">
-      	<center>
-          <input type="submit" name="addsupplier" value="Save Supplier" class="my-btn">
+        <center>
+          <input type="submit" name="addaccount" value="Create Account" class="my-btn">
           </center>
       </div>
       <div class="card">
-      
-      	
+        <center>
+         <label><?php echo "Sale by  :  ".$row["Cleardate"]; ?></label><br>
+          </center>
       </div>
    </div>
+             <?php     
+                }; 
+              };
+                };   
+            ?> 
 </form>
 </div>
 
@@ -315,36 +333,25 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <div class="scroll-table">
   <div class="table-holder">
     <div class="table-caption">
-      <label class="my-label">List of Suppliers  </label>
+      <label class="my-label">Adjustments</label>
     </div>
   <table>
     <thead>
-      <th>Supplier Name</th>
-      <th>Email </th>
-      <th>Phone</th>
-      <th>Location</th>
-      <th>Type</th>
-      <th>Status</th>
+      <th>Stock Name</th>
+      <th>Code </th>
+      <th>Ajusted</th>
+      <th>Adjust Date</th>
     </thead>
     <tbody>   
     <?php     
             while ($row = mysqli_fetch_array($rs_result)) {    
                   // Display each field of the records.    
             ?>     
-            <tr>     
-             <td><?php echo $row["Suppliername"]; ?></td>     
-            <td><?php echo $row["Supplieremal"]; ?></td>   
-            <td><?php echo $row["Supplierphone"]; ?></td>   
-            <td><?php echo $row["Suppliertown"]; ?></td>
-            <td><?php echo $row["Suppliertype"]; ?></td>   
-            <td><?php 
-                  if ($row["Status"] == 1) {
-                    // code...
-                    echo "Active";
-                  }else{
-                    echo "Dormant";
-                  }
-             ?></td>                                              
+            <tr>
+            <td><?php echo $row["Stockcode"]; ?></td>      
+             <td><?php echo $row["Stockcode"]; ?></td>     
+            <td><?php echo $row["Adjustdate"]; ?></td>   
+            <td><?php echo $row["Adjustdate"];?></td>                                                
             </tr>     
             <?php     
                 };    
@@ -355,7 +362,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <!-- pages -->
 <div class="pagination">    
       <?php  
-        $query = "SELECT COUNT(*) FROM tblsupplier";     
+        $query = "SELECT COUNT(*) FROM tblstockadjust";     
         $rs_result = mysqli_query($conn, $query);     
         $row = mysqli_fetch_row($rs_result);     
         $total_records = $row[0];     
@@ -366,23 +373,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='creatsupplier.php?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='adjuststock.php?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='creatsupplier.php?page="  
+              $pagLink .= "<a class = 'active' href='adjuststock.php?page="  
                                                 .$i."'>".$i." </a>";   
           }               
           else  {   
-              $pagLink .= "<a href='creatsupplier.php?page=".$i."'>   
+              $pagLink .= "<a href='adjuststock.php?page=".$i."'>   
                                                 ".$i." </a>";     
           }   
         };     
         echo $pagLink;   
   
         if($page<$total_pages){   
-            echo "<a href='creatsupplier.php?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='adjuststock.php?page=".($page+1)."'>  Next </a>";   
         }   
   
       ?>    
@@ -406,7 +413,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <br><br><br><br>
 <!-- footer starts -->
 <div class="footer">
-	 <h3></h3>
+   <h3></h3>
    Juelga solution &copy;  &nbsp;&nbsp;<a href="https://www.juelgasolutions.co.tz" style="text-decoration: none; color: #ffffff">juelgasolution </a><br>
    <h3></h3>
 </div>
@@ -418,7 +425,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'creatsupplier.php?page='+page;   
+        window.location.href = 'adjuststock.php?page='+page;   
     }   
   </script>  
 </body>
