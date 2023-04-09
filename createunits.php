@@ -73,7 +73,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     
         $start_from = ($page-1) * $per_page_record;     
     
-        $query = "SELECT * FROM tblunits LIMIT $start_from, $per_page_record";     
+        $query = "SELECT * FROM tblunit LIMIT $start_from, $per_page_record";     
         $rs_result = mysqli_query ($conn, $query);    
 
 
@@ -86,36 +86,29 @@ if (isset($_SERVER['QUERY_STRING'])) {
 
 
   // get data to insert
-  if(isset($_POST['addstock'])){
-    $newname = $_POST['stockname'];
-    $newcode = $_POST['code'];
+  if(isset($_POST['addunit'])){
+    $newunit = $_POST['units'];
+    $newabbreviation = $_POST['abbreviation'];
     $newdescription = $_POST['description'];
-    $newunitcount = $_POST['unitcount'];
-    $newunitsale = $_POST['unitsale'];
-    $newclearby = $_POST['clearby'];
-    $newunit;
+    $newunitcode = $_POST['unitcode'];
      $newdate =  date("Y-m-d");
- if(!empty($_POST['unit'])){
-        $newunit = $_POST['unit'];
-        if(!empty($_POST['stockname']) && !empty($_POST['code']) && !empty($_POST['unitsale'])  && !empty($_POST['unitcount'])) {
-         $newstocksql = "INSERT INTO tblstock (Stockname, Stockcode,Description,Unitcode,Unitcount,Saleunits,Cleardate,Status,Dateadded,Createdby)
-            VALUES ('{$newname}','{$newcode}','{$newdescription}','{$newunit}','{$newunitcount}','{$newunitsale}','{$newclearby}',1,'{$newdate}','{$currentUser}')";
+        if(!empty($_POST['units']) && !empty($_POST['abbreviation']) && !empty($_POST['unitcode'])) {
+         $newunitsql = "INSERT INTO tblunit (Unitid, Dateadded,Unitabbreviation,Unit,Description,Status)
+            VALUES ('{$newunitcode}','{$newdate}','{$newabbreviation}','{$newunit}','{$newdescription}',1)";
 
 
-              if ($conn->query($newstocksql) === TRUE) {
-                 echo "<script>alert('New Stock added successfully');</script>";
-                  header("Refresh:0; url=createstock.php");
+              if ($conn->query($newunitsql) === TRUE) {
+                 echo "<script>alert('New Unit added successfully');</script>";
+                  header("Refresh:0; url=createunits.php");
               } else {
-                echo "Error: " . $newstocksql . "<br>" . $conn->messaeg;
+                echo "Error: " . $newunitsql . "<br>" . $conn->messaeg;
               }
        
         
     }else{
-       echo "<script>alert('Please Fill in the Stock name, Code and unit sale number');</script>";
+       echo "<script>alert('Please Fill in the Unit name, Code and unit abbreviation');</script>";
     }
-    } else {
-      echo "<script>alert('Please select the units');</script>";
-    }
+    
  
   }
 
@@ -196,20 +189,20 @@ if (isset($_SERVER['QUERY_STRING'])) {
 </div>
 <!-- end of nav bar -->
 <div class="action-div">
-  <form action="createstock.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Stock management</h3></center>
+  <form action="createunits.php" method="POST" name="" id="submitform">
+	 <center><h3 class="my-label">Unit management</h3></center>
 
 	 <div class="input-holder">
       <div class="card">
       	<center>
-          <label class="small-label">Stock Name</label><br>
-          <input type="text" name="stockname" placeholder="Enter stock name" class="my-input">
+          <label class="small-label">Units </label><br>
+          <input type="text" name="units" placeholder="Enter units" class="my-input">
           </center>
       </div>
       <div class="card">
         <center>
-          <label class="small-label">Stock Code</label><br>
-          <input type="text" name="code" placeholder="Enter code eg. S101D" class="my-input">
+          <label class="small-label">Abbreviation</label><br>
+          <input type="text" name="abbreviation" placeholder="Enter Kg, M, g" class="my-input">
           </center>
       </div>
    </div>
@@ -220,7 +213,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
           <label class="small-label">Description</label><br>
            </center>
           </textarea>
-          <textarea name="description" rows="4" cols="40" placeholder="Describe stock here..."></textarea>
+          <textarea name="description" rows="4" cols="40" placeholder="Describe unit here..."></textarea>
          
       </div>
          </div>
@@ -228,37 +221,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
     <div class="input-holder">
       <div class="card">
       	<center>
-          <label class="small-label">Unit Measure </label><br>
-          <select class="my-input" name="unit">
-            <option value="Kg">option one</option>
-            <option value="Grams">option two</option>
-          </select>
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Unit Count</label><br>
-          <input type="text" name="unitcount" placeholder="Unit count" class="my-input">
+      	<label class="small-label">Unit Code</label><br>
+          <input type="text" name="unitcode" placeholder="Unit code KG-01" class="my-input">
           </center>
       </div>
    </div>
  
-    <div class="input-holder">
-            <div class="card">
-        <center>
-        <label class="small-label">Units to Sale</label><br>
-          <input type="text" name="unitsale" placeholder="Units to sale" class="my-input">
-          </center>
-      </div>
-       <div class="card">
-        <center>
-        <label class="small-label">Clear Date</label><br>
-          <input type="date" name="clearby" class="my-input">
-          </center>
-      </div>
-
-
-   </div>
+  
 
 
 
@@ -268,7 +237,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
    <div class="input-holder">
       <div class="card">
       	<center>
-          <input type="submit" name="addstock" value="Save Supplier" class="my-btn">
+          <input type="submit" name="addunit" value="Save Unit" class="my-btn">
           </center>
       </div>
       <div class="card">
@@ -286,15 +255,14 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <div class="scroll-table">
   <div class="table-holder">
     <div class="table-caption">
-      <label class="my-label">List of Suppliers  </label>
+      <label class="my-label">List of Units  </label>
     </div>
   <table>
     <thead>
-      <th>Stock Name</th>
-      <th>Sale Units </th>
+      <th>Unit</th>
+      <th>Abbreviation </th>
       <th>Code</th>
-      <th>Measure</th>
-      <th>Clear by</th>
+      <th>Date added</th>
       <th>Status</th>
     </thead>
     <tbody>   
@@ -303,11 +271,10 @@ if (isset($_SERVER['QUERY_STRING'])) {
                   // Display each field of the records.    
             ?>     
             <tr>     
-             <td><?php echo $row["Stockname"]; ?></td>     
-            <td><?php echo $row["Saleunits"]; ?></td>   
-            <td><?php echo $row["Stockcode"]; ?></td>   
-            <td><?php echo $row["Unitcode"]; ?></td>
-            <td><?php echo $row["Cleardate"]; ?></td>   
+             <td><?php echo $row["Unit"]; ?></td>     
+            <td><?php echo $row["Unitabbreviation"]; ?></td>   
+            <td><?php echo $row["Unitid"]; ?></td>   
+            <td><?php echo $row["Dateadded"]; ?></td>   
             <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
@@ -326,7 +293,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <!-- pages -->
 <div class="pagination">    
       <?php  
-        $query = "SELECT COUNT(*) FROM tblstock";     
+        $query = "SELECT COUNT(*) FROM tblunit";     
         $rs_result = mysqli_query($conn, $query);     
         $row = mysqli_fetch_row($rs_result);     
         $total_records = $row[0];     
