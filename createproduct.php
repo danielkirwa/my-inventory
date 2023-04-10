@@ -95,7 +95,7 @@ if($_POST['code'] != ""){
                 $searchresult = mysqli_query ($conn, $query);    
                } 
         }else{
-
+          // echo "<script>alert('Enter Stock code or name to search');</script>";
         }
 
 
@@ -107,39 +107,32 @@ if($_POST['code'] != ""){
 
 
   // get data to insert
-  if(isset($_POST['addsupplier'])){
-    $newname = $_POST['firstname'];
-    $newaddress = $_POST['address'];
-    $newphone = $_POST['phone'];
-    $newemail = $_POST['email'];
-    $newotherphone = $_POST['otherphone'];
-    $newregion = $_POST['region'];
-    $newdistrict = $_POST['district'];
-    $newtown = $_POST['town'];
-    $newcode = $_POST['code'];
-    $newtype;
+  if(isset($_POST['addproduct'])){
+    $newname = $_POST['productname'];
+    $newcode = $_POST['productcode'];
+    $newinitialprice = $_POST['buying'];
+    $newcurrentprice = $_POST['selling'];
+    $newstockcode = $_POST['stockcode'];
+     $newdescription = $_POST['description'];
      $newdate =  date("Y-m-d");
- if(!empty($_POST['type'])){
-        $newtype = $_POST['type'];
-        if(!empty($_POST['firstname']) && !empty($_POST['phone']) && !empty($_POST['code'])  && !empty($_POST['town'])) {
-         $newsuppliersql = "INSERT INTO tblsupplier (Suppliername, Supplierphone,Supplierotherphone,Supplieremal,Supplieraddress,Supplierregion,Supplierdistrict,Suppliertown,Suppliertype,Datecreated,Status,Createdby)
-            VALUES ('{$newname}','{$newphone}','{$newotherphone}','{$newemail}','{$newaddress}','{$newregion}','{$newdistrict}','{$newtown}','{$newtype}','{$newdate}',1 ,'{$currentUser}')";
+
+        if(!empty($_POST['productname']) && !empty($_POST['productcode']) && !empty($_POST['buying'])  && !empty($_POST['selling'])) {
+         $newsuppliersql = "INSERT INTO tblproduct (Productname, Code,Dateadded,Addedby,Stockcode,Initialunitprice,Currentunitprice,Description,Status)
+            VALUES ('{$newname}','{$newcode}','{$newdate}','{$currentUser}','{$newstockcode}','{$newinitialprice}','{$newcurrentprice}','{$newdescription}',1)";
 
 
               if ($conn->query($newsuppliersql) === TRUE) {
-                 echo "<script>alert('New Supplier added successfully');</script>";
-                  header("Refresh:0; url=createsupplier.php");
+                 echo "<script>alert('New product added successfully');</script>";
+                  header("Refresh:0; url=createproduct.php");
               } else {
                 echo "Error: " . $newsuppliersql . "<br>" . $conn->messaeg;
               }
        
         
     }else{
-       echo "<script>alert('Please Fill in The Supplier name, Code and Phone number');</script>";
+       echo "<script>alert('Please Fill in The product name, price and code');</script>";
     }
-    } else {
-      echo "<script>alert('Please select the Type of the supplier');</script>";
-    }
+    
  
   }
 
@@ -296,17 +289,46 @@ if($_POST['code'] != ""){
       </div>
    </div>
 
+    <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Product name : </label><br>
+         <input type="text" name="productname" value="<?php echo  $row["Stockname"] ?>" class="my-input" placeholder="Enter product name">
+          </center>
+      </div>
+       <div class="card">
+        <center>
+          <label class="small-label">Product code : </label><br>
+         <input type="text" name="productcode" value="" class="my-input"  placeholder="Enter code P-S00-1">
+          </center>
+      </div>
+   </div>
+
+
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Description</label><br>
+           </center>
+          
+          <textarea name="description" rows="4" cols="40" placeholder="Describe unit here..."></textarea>
+         
+      </div>
+         </div>
+
+
    <div class="input-holder">
       <div class="card">
         <center>
           <label class="small-label">Buying Price</label><br>
-         <input type="text" name="buying" value="" class="my-input">
+         <input type="text" name="buying" value="" class="my-input" placeholder="Enter whole number 2000">
           </center>
       </div>
       <div class="card">
         <center>
         <label class="small-label">Selling Price </label><br>
-        <input type="text" name="selling" value="" class="my-input">
+        <input type="text" name="selling" value="" class="my-input" placeholder="Enter whole number 2000">
           </center>
       </div>
    </div>
@@ -315,7 +337,7 @@ if($_POST['code'] != ""){
    <div class="input-holder">
       <div class="card">
         <center>
-          <input type="submit" name="addaccount" value="Create Account" class="my-btn">
+          <input type="submit" name="addproduct" value="Create Product" class="my-btn">
           </center>
       </div>
       <div class="card">
@@ -344,11 +366,10 @@ if($_POST['code'] != ""){
     </div>
   <table>
     <thead>
-      <th>Supplier Name</th>
-      <th>Email </th>
-      <th>Phone</th>
-      <th>Location</th>
-      <th>Type</th>
+      <th>Product</th>
+      <th>Initial Price </th>
+      <th>Current Price</th>
+      <th>Description</th>
       <th>Status</th>
     </thead>
     <tbody>   
@@ -357,11 +378,10 @@ if($_POST['code'] != ""){
                   // Display each field of the records.    
             ?>     
             <tr>     
-             <td><?php echo $row["Suppliername"]; ?></td>     
-            <td><?php echo $row["Supplieremal"]; ?></td>   
-            <td><?php echo $row["Supplierphone"]; ?></td>   
-            <td><?php echo $row["Suppliertown"]; ?></td>
-            <td><?php echo $row["Suppliertype"]; ?></td>   
+             <td><?php echo $row["Productname"]; ?></td>     
+            <td><?php echo $row["Initialunitprice"]; ?></td>   
+            <td><?php echo $row["Currentunitprice"]; ?></td>   
+            <td><?php echo $row["Description"]; ?></td>      
             <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
