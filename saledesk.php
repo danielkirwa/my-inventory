@@ -19,6 +19,13 @@ if ($_SESSION['username']) {
 }
 
 ?>
+<?php 
+    $query ="SELECT Productname,Currentunitprice FROM tblproduct";
+    $result = $conn->query($query);
+    if($result->num_rows> 0){
+      $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -122,7 +129,16 @@ if ($_SESSION['username']) {
 <!-- end of dashboard -->
 <!-- start of select item -->
 <div class="item-picker">
-  slect
+  <select name="courseName" class="my-input">
+   <option>Select Product/Item</option>
+  <?php 
+  foreach ($options as $option) {
+  ?>
+    <option value="<?php echo $option['Currentunitprice']; ?>"><?php echo $option['Productname']; ?> </option>
+    <?php 
+    }
+   ?>
+</select>
 </div>
 <!-- end of select item -->
 
