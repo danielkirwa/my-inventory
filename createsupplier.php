@@ -367,23 +367,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='creatsupplier.php?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='createsupplier.php?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='creatsupplier.php?page="  
+              $pagLink .= "<a class = 'active' href='createsupplier.php?page="  
                                                 .$i."'>".$i." </a>";   
           }               
           else  {   
-              $pagLink .= "<a href='creatsupplier.php?page=".$i."'>   
+              $pagLink .= "<a href='createsupplier.php?page=".$i."'>   
                                                 ".$i." </a>";     
           }   
         };     
         echo $pagLink;   
   
         if($page<$total_pages){   
-            echo "<a href='creatsupplier.php?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='createsupplier.php?page=".($page+1)."'>  Next </a>";   
         }   
   
       ?>    
@@ -419,7 +419,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'creatsupplier.php?page='+page;   
+        window.location.href = 'createsupplier.php?page='+page;   
     }   
   </script>  
 </body>

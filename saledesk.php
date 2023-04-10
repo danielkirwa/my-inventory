@@ -120,7 +120,11 @@ if ($_SESSION['username']) {
 </div>
 
 <!-- end of dashboard -->
-
+<!-- start of select item -->
+<div class="item-picker">
+  slect
+</div>
+<!-- end of select item -->
 
 <!-- start of sale dashboard -->
 

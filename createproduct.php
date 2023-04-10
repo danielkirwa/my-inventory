@@ -73,12 +73,33 @@ if (isset($_SERVER['QUERY_STRING'])) {
     
         $start_from = ($page-1) * $per_page_record;     
     
-        $query = "SELECT * FROM tblsupplier LIMIT $start_from, $per_page_record";     
+        $query = "SELECT * FROM tblproduct LIMIT $start_from, $per_page_record";     
         $rs_result = mysqli_query ($conn, $query);    
 
 
 
 ?>
+
+
+<!-- serach stock to create -->
+<?php 
+
+
+  // get data to insert
+  if(isset($_POST['searchstock'])){
+
+if($_POST['code'] != ""){
+            $newcode = $_POST['code'];
+         
+            $query = "SELECT  * FROM tblstock WHERE Stockcode ='$newcode' OR Stockname='$newcode'";
+                $searchresult = mysqli_query ($conn, $query);    
+               } 
+        }else{
+
+        }
+
+
+ ?> 
 
 
 
@@ -132,7 +153,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Customer</title>
+	<title>Product</title>
 
 		<link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
@@ -199,115 +220,118 @@ if (isset($_SERVER['QUERY_STRING'])) {
   </div>
 </div>
 <!-- end of nav bar -->
+
 <div class="action-div">
-  <form action="createsupplier.php" method="POST" name="" id="submitform">
-	 <center><h3 class="my-label">Product management</h3></center>
-
-	 <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">First Name</label><br>
-          <input type="text" name="firstname" placeholder="Enter supplier name" class="my-input">
-          </center>
-      </div>
-   </div>
+  <form action="createproduct.php" method="POST" name="" id="submitform">
+   <center><h3 class="my-label">Search Stock to create products</h3></center>
 
    <div class="input-holder">
       <div class="card">
-      	<center>
-          <label class="small-label">Phone Number</label><br>
-          <input type="text" name="phone" placeholder="+2557xxxxxxx" class="my-input">
+        <center>
+          <label class="small-label">Entet Code/name</label><br>
+          <input type="text" name="code" placeholder="Enter stock code or Name" class="my-input">
           </center>
       </div>
       <div class="card">
-      	<center>
-      	<label class="small-label">Other Number</label><br>
-          <input type="text" name="otherphone" placeholder="+2557xxxxxxx" class="my-input">
+         <center>
+          <br>
+          <input type="submit" name="searchstock" value="Search now" class="my-btn">
           </center>
-      </div>
-   </div>
 
-    <div class="input-holder">
-      <div class="card">
-      	<center>
-          <label class="small-label">Email </label><br>
-          <input type="text" name="email" placeholder="Enter email" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-      	<label class="small-label">Address</label><br>
-          <input type="text" name="address" placeholder="Add address" class="my-input">
-          </center>
-      </div>
-   </div>
- 
-    <div class="input-holder">
-            <div class="card">
-      	<center>
-      	<label class="small-label">Supplier Type</label><br>
-          <select class="my-input" name="type">
-            <option value="" disabled selected>Choose Type</option>
-           	<option value="Individual">Individual</option>
-           	<option value="Company">Company</option>
-            <option value="Organization">Organization</option>
-            <option value="Government">Government</option>
-           </select>
-          </center>
-      </div>
-        <div class="card">
-      
-        
-      </div>
-
-
-   </div>
-
-     <div class="input-holder">
-      <div class="card">
-      	<center>
-        <label class="small-label">Region</label><br>
-          <input type="text" name="region" placeholder="Region" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-      	<center>
-        <label class="small-label">District</label><br>
-          <input type="text" name="district" placeholder="District" class="my-input">
-          </center>
-        </div>
-   </div>
-
-
-
-     <div class="input-holder">
-      <div class="card">
-        <label class="small-label">Town/Center</label><br>
-          <input type="text" name="town" placeholder="Town/center" class="my-input">
-          </center>
-      </div>
-      <div class="card">
-       <label class="small-label">Supplier Code</label><br>
-          <input type="text" name="code" placeholder="Enter code S001-2023" class="my-input">
-          </center>
-        
       </div>
    </div>
 
 
-   <div class="input-holder">
-      <div class="card">
-      	<center>
-          <input type="submit" name="addsupplier" value="Save Supplier" class="my-btn">
-          </center>
-      </div>
-      <div class="card">
-      
-      	
-      </div>
-   </div>
 </form>
 </div>
+
+<!-- create product -->
+<div class="action-div">
+  <form action="createproduct.php" method="POST" name="" id="submitform">
+     <?php  
+           if(isset($_POST['searchstock'])){
+
+            if ($isTouch = empty($searchresult)) {
+              // code...
+            }else{
+   
+            if($row = $searchresult->fetch_assoc()) { 
+                  // Display each field of the records.
+              
+            ?>   
+   <center><h3 class="my-label"><?php echo  $row["Stockname"] ?> &nbsp; product creation</h3></center>
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Stock Name</label><br>
+          <label><?php echo "Full Name :  ".$row["Stockname"]; ?></label>
+          </center>
+      </div>
+      <div class="card">
+        <center>
+        <label class="small-label">Stock CODE</label><br>
+        <input type="hidden" name="stockcode" value="<?php echo $row["Stockcode"]; ?>">
+         <label><?php echo "CODE :  ".$row["Stockcode"]; ?></label>
+          </center>
+      </div>
+   </div>
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Available Units</label><br>
+             
+            
+               <input type="hidden" name="saleunits" value="<?php echo $row["Saleunits"]; ?>">
+                 <label><?php echo "Available Units : ".$row["Saleunits"]; ?></label><br> 
+          </center>
+      </div>
+      <div class="card">
+        <center>
+        <label class="small-label">Created By</label><br>
+        <input type="hidden" name="Createdby" value="<?php echo $row["Createdby"]; ?>">
+         <label><?php echo "Author :  ".$row["Createdby"]; ?></label><br>
+          </center>
+      </div>
+   </div>
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Buying Price</label><br>
+         <input type="text" name="buying" value="" class="my-input">
+          </center>
+      </div>
+      <div class="card">
+        <center>
+        <label class="small-label">Selling Price </label><br>
+        <input type="text" name="selling" value="" class="my-input">
+          </center>
+      </div>
+   </div>
+
+
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <input type="submit" name="addaccount" value="Create Account" class="my-btn">
+          </center>
+      </div>
+      <div class="card">
+        <center>
+         <label><?php echo "Product will created out of   ".$row["Stockname"] . " and should be sold by  " .$row["Cleardate"]; ?></label><br>
+          </center>
+      </div>
+   </div>
+             <?php     
+                }; 
+              };
+                };   
+            ?> 
+</form>
+</div>
+
 
 
 <!-- table -->
@@ -316,7 +340,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <div class="scroll-table">
   <div class="table-holder">
     <div class="table-caption">
-      <label class="my-label">List of Suppliers  </label>
+      <label class="my-label">List of products  </label>
     </div>
   <table>
     <thead>
@@ -341,9 +365,9 @@ if (isset($_SERVER['QUERY_STRING'])) {
             <td><?php 
                   if ($row["Status"] == 1) {
                     // code...
-                    echo "Active";
+                    echo "Instock";
                   }else{
-                    echo "Dormant";
+                    echo "Out of stock";
                   }
              ?></td>                                              
             </tr>     
@@ -356,7 +380,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
 <!-- pages -->
 <div class="pagination">    
       <?php  
-        $query = "SELECT COUNT(*) FROM tblsupplier";     
+        $query = "SELECT COUNT(*) FROM tblproduct";     
         $rs_result = mysqli_query($conn, $query);     
         $row = mysqli_fetch_row($rs_result);     
         $total_records = $row[0];     
@@ -367,23 +391,23 @@ if (isset($_SERVER['QUERY_STRING'])) {
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='creatsupplier.php?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='createproduct.php?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='creatsupplier.php?page="  
+              $pagLink .= "<a class = 'active' href='createproduct.php?page="  
                                                 .$i."'>".$i." </a>";   
           }               
           else  {   
-              $pagLink .= "<a href='creatsupplier.php?page=".$i."'>   
+              $pagLink .= "<a href='createproduct.php?page=".$i."'>   
                                                 ".$i." </a>";     
           }   
         };     
         echo $pagLink;   
   
         if($page<$total_pages){   
-            echo "<a href='creatsupplier.php?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='createproduct.php?page=".($page+1)."'>  Next </a>";   
         }   
   
       ?>    
@@ -419,7 +443,7 @@ if (isset($_SERVER['QUERY_STRING'])) {
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'creatsupplier.php?page='+page;   
+        window.location.href = 'createproduct.php?page='+page;   
     }   
   </script>  
 </body>
