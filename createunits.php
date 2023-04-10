@@ -213,7 +213,6 @@ if (isset($_SERVER['QUERY_STRING'])) {
       	<center>
           <label class="small-label">Description</label><br>
            </center>
-          </textarea>
           <textarea name="description" rows="4" cols="40" placeholder="Describe unit here..."></textarea>
          
       </div>

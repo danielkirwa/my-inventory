@@ -129,7 +129,11 @@ if ($_SESSION['username']) {
 <!-- end of dashboard -->
 <!-- start of select item -->
 <div class="item-picker">
-  <select name="courseName" class="my-input">
+ 
+ <div class="general-banner">
+    <div class="small-card">
+      
+       <select name="courseName" class="my-input">
    <option>Select Product/Item</option>
   <?php 
   foreach ($options as $option) {
@@ -139,6 +143,31 @@ if ($_SESSION['username']) {
     }
    ?>
 </select>
+    </div>
+      <div class="small-card">
+     <input type="text" name="productcode" value="" class="my-input"  placeholder="Enter code P-S00-1">
+      </div>
+      <div class="small-card">
+        <input type="submit" name="selectproduct" value="Select Product/Item" class="my-btn">
+      </div>
+    
+   </div>
+   <div class="general-banner">
+    <div class="small-card">
+      <label>name</label><br>
+      <label>price</label><br>
+      <!-- add hidden inputs to hold values  -->
+     
+    </div>
+      <div class="small-card">
+     <input type="number" name="itemnumber" value="1" class="my-input"  placeholder="1">
+      </div>
+      <div class="small-card" >
+        <input type="submit" name="addtoreciept" value="Add to Reciept" class="my-btn">
+      </div>
+    
+   </div>
+
 </div>
 <!-- end of select item -->
 
