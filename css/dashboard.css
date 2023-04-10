@@ -7,7 +7,6 @@
 .general-banner{
   width: 80%;
   margin-left: 10%;
-  background: teal;
     display: flex;
   flex-wrap: wrap;
     justify-content: center;
@@ -36,4 +35,16 @@
   justify-content: center;
   box-shadow: 0 40px 80px #FBE4E0;
   border-radius: 14px;
+}
+.small-card{
+   flex: 1 1 250px; /*  Stretching: */
+    flex: 0 1 250px; /*  No stretching: */
+    margin: 5px;
+    background: blue;
+     background-color: #00000000;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 40px 80px #FBE4E0;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 }
