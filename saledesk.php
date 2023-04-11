@@ -153,8 +153,8 @@ if ($_SESSION['username']) {
    <div class="general-banner">
 
     <div class="small-card">
-      <label>name</label><br>
-      <label>price</label><br>
+      <label id="newselectitem">No item selected</label><br>
+      <label id="newselectprice">0.00</label><br>
       <!-- add hidden inputs to hold values  -->
      
     </div>
