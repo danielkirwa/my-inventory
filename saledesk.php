@@ -133,7 +133,7 @@ if ($_SESSION['username']) {
  <div class="general-banner">
     <div class="small-card">
       
-       <select name="courseName" class="my-input">
+       <select name="courseName" class="my-input" id="Itemselected">
    <option>Select Product/Item</option>
   <?php 
   foreach ($options as $option) {
@@ -189,7 +189,7 @@ if ($_SESSION['username']) {
     <tbody>   
     
             <tr>     
-             <td></td>     
+            <td></td>     
             <td></td>   
             <td></td>   
             <td></td>   
@@ -213,5 +213,7 @@ if ($_SESSION['username']) {
    Juelga solution &copy;  &nbsp;&nbsp;<a href="https://www.juelgasolutions.co.tz" style="text-decoration: none; color: #ffffff">juelgasolution </a><br>
    <h3></h3>
 </div>
+
+<script type="text/javascript" src="js/sale.js"></script>
 </body>
 </html>
