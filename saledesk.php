@@ -122,13 +122,11 @@ if ($_SESSION['username']) {
        </div>
     
    </div>
- 
-   
-</div>
 
-<!-- end of dashboard -->
+
+   <!-- end of dashboard -->
 <!-- start of select item -->
-<div class="item-picker">
+
  
  <div class="general-banner">
     <div class="small-card">
@@ -153,6 +151,7 @@ if ($_SESSION['username']) {
     
    </div>
    <div class="general-banner">
+
     <div class="small-card">
       <label>name</label><br>
       <label>price</label><br>
@@ -165,11 +164,15 @@ if ($_SESSION['username']) {
       <div class="small-card" >
         <input type="submit" name="addtoreciept" value="Add to Reciept" class="my-btn">
       </div>
-    
    </div>
 
-</div>
+
 <!-- end of select item -->
+ 
+   
+</div>
+
+
 
 <!-- start of sale dashboard -->
 
