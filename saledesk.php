@@ -192,7 +192,7 @@ if($_POST['productcode'] != ""){
      <input type="number" name="itemnumber" value="1" class="my-input" id="itemcounter">
        </div>
       <div class="small-card" >
-        <input type="submit" name="addtoreciept" value="Add to Reciept" class="my-btn">
+        <input type="submit" value="Add to Reciept" class="my-btn" id="btnaddtorecipt">
       </div>
    </div>
 
