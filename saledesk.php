@@ -27,6 +27,32 @@ if ($_SESSION['username']) {
     }
 ?>
 
+
+<!-- serach product to sale -->
+<?php 
+
+
+  if(isset($_POST['selectproduct'])){
+
+if($_POST['productcode'] != ""){
+            $newname = $_POST['productcode'];
+         
+            $query = "SELECT  * FROM tblproduct WHERE Productname ='$newname' OR Code='$newname'";
+                $searchresult = mysqli_query ($conn, $query);    
+               } 
+        }
+
+
+ ?>
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,26 +167,30 @@ if ($_SESSION['username']) {
     }
    ?>
 </select>
+
     </div>
+   
       <div class="small-card">
-     <input type="text" name="productcode" value="" class="my-input"  placeholder="Enter code P-S00-1">
+     <input type="text" name="productcode" value="" class="my-input"  placeholder="Enter code P-S00-1 or Name">
       </div>
       <div class="small-card">
         <input type="submit" name="selectproduct" value="Select Product/Item" class="my-btn">
       </div>
-    
+   
    </div>
    <div class="general-banner">
 
     <div class="small-card">
+
+
       <label id="newselectitem">No item selected</label><br>
       <label id="newselectprice">0.00</label><br>
       <!-- add hidden inputs to hold values  -->
-     
+   
     </div>
       <div class="small-card">
-     <input type="number" name="itemnumber" value="1" class="my-input"  placeholder="1">
-      </div>
+     <input type="number" name="itemnumber" value="1" class="my-input" id="itemcounter">
+       </div>
       <div class="small-card" >
         <input type="submit" name="addtoreciept" value="Add to Reciept" class="my-btn">
       </div>
