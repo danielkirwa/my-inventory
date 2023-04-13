@@ -35,12 +35,14 @@ function updateValue(e) {
 }
 
 btnaddtorecipt.addEventListener('click', () =>{
+	if (totalamount >= 1) {
 	itemcounter.value = 1;
 	newselectitem.innerHTML=  "Item. ";
 	newselectprice.innerHTML= "Ksh. ";
 var item = Itemselected.options[Itemselected.selectedIndex].text;
 var price = Itemselected.options[Itemselected.selectedIndex].value;
 	  // Get the table
+
   var table = document.getElementById("reciepttable");
 
   // Create a new row
@@ -51,17 +53,19 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
   var cell2 = row.insertCell(1);
   var cell3 = row.insertCell(2);
   var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-
 
 
   // Add values to the cells
-  cell1.innerHTML = "";
   cell3.innerHTML = totalamount;
-  cell4.innerHTML = count;
-  cell2.innerHTML = item;
-  cell5.innerHTML = "item";
+  cell2.innerHTML = count;
+  cell1.innerHTML = item;
+  cell4.innerHTML = "<button>X</button>";
 
-
+}else{
+	alert("Select new item to add ");
+}
   
 })
+
+
+

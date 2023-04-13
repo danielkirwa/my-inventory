@@ -213,15 +213,14 @@ if($_POST['productcode'] != ""){
     </div>
   <table id="reciepttable">
     <thead>
-      <th>S NO.</th>
       <th>Item </th>
-      <th>Amount</th>
       <th>Count</th>
+      <th>Amount</th>
       <th>Action</th>
     </thead>
     <tbody>       
                  
-          </tbody>
+      </tbody>
      </table>
 
 
