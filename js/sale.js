@@ -3,6 +3,7 @@ let newselectitem = document.getElementById('newselectitem');
 let newselectprice = document.getElementById('newselectprice');
 let itemcounter = document.getElementById('itemcounter');
 let btnaddtorecipt = document.getElementById('btnaddtorecipt');
+let snolabel = document.getElementById('snolabel');
 var count;
 var totalamount;
 
@@ -12,6 +13,8 @@ var item = Itemselected.options[Itemselected.selectedIndex].text;
 var price = Itemselected.options[Itemselected.selectedIndex].value;
 	newselectitem.innerHTML=  "Item. " +item;
 	newselectprice.innerHTML= "Ksh. " +price;
+	count = 1;
+	totalamount = price;
 
 });
 
@@ -57,7 +60,7 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
   cell3.innerHTML = totalamount;
   cell4.innerHTML = count;
   cell2.innerHTML = item;
-  cell5.innerHTML = "";
+  cell5.innerHTML = "item";
 
 
   

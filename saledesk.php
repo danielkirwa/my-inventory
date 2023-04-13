@@ -219,15 +219,7 @@ if($_POST['productcode'] != ""){
       <th>Count</th>
       <th>Action</th>
     </thead>
-    <tbody>   
-    
-            <tr>     
-            <td></td>     
-            <td></td>   
-            <td></td>   
-            <td></td>   
-            <td></td>                                              
-            </tr>     
+    <tbody>       
                  
           </tbody>
      </table>
