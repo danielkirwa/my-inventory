@@ -20,7 +20,7 @@ if ($_SESSION['username']) {
 
 ?>
 <?php 
-    $query ="SELECT Productname,Currentunitprice FROM tblproduct";
+    $query ="SELECT Productname,Currentunitprice FROM tblproduct WHERE Status = 1";
     $result = $conn->query($query);
     if($result->num_rows> 0){
       $options= mysqli_fetch_all($result, MYSQLI_ASSOC);
