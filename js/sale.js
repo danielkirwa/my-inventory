@@ -59,13 +59,19 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
   cell3.innerHTML = totalamount;
   cell2.innerHTML = count;
   cell1.innerHTML = item;
-  cell4.innerHTML = "<button>X</button>";
+  cell4.innerHTML = `<button class="remove-btn" onclick="removeRow(this)">X</button>`;
 
 }else{
 	alert("Select new item to add ");
 }
   
 })
+
+// delete item
+function removeRow(button) {
+			var row = button.parentNode.parentNode;
+			row.parentNode.removeChild(row);
+		}
 
 
 
