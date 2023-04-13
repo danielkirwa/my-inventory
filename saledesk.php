@@ -132,7 +132,7 @@ if($_POST['productcode'] != ""){
    <div class="general-banner">
     <div class="small-card">
     <center> <label class="my-label">Total Items</label><br>
-    <label class="my-label">2</label>
+    <label class="my-label" id="snolabel">0</label>
     </center>
     </div>
       <div class="small-card">
@@ -211,7 +211,7 @@ if($_POST['productcode'] != ""){
     <div class="table-caption">
       <label class="my-label">Reciept Items count :   </label>
     </div>
-  <table>
+  <table id="reciepttable">
     <thead>
       <th>S NO.</th>
       <th>Item </th>
