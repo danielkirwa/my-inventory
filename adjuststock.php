@@ -163,7 +163,7 @@ if($_POST['code'] != ""){
 <div>
     <div class="banner">
       <div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
-      <div class="shop-name"><center><h3>Business name here</h3></center></div>
+      <div class="shop-name"><center><h3><?php echo $openbusiness; ?></h3></center></div>
     </div>
 </div>
 <!-- nav -->
