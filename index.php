@@ -51,6 +51,34 @@
         }
    ?>
 
+   <?php 
+
+            $query = "SELECT * FROM tblbusiness WHERE Status = 1 "; 
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+              // output data of each row
+              if($row = $result->fetch_assoc()) {
+
+                $_SESSION['businessname'] = $row["Businessname"];
+           }
+       }
+                
+    ?>
+
+     <?php
+//initialize the session
+
+if ($_SESSION['businessname']) {
+  // code...
+ $openbusiness =  $_SESSION['businessname'];
+ 
+
+}else{
+    
+}
+
+?>
+
 
 
 <!DOCTYPE html>
@@ -67,7 +95,7 @@
 <div>
     <div class="banner">
     	<div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
-    	<div class="shop-name"><center><h3>Juelga Distributions</h3></center></div>
+    	<div class="shop-name"><center><h3><?php echo $openbusiness; ?></h3></center></div>
     </div>
 </div>
 

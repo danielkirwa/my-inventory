@@ -13,12 +13,16 @@ if ($_SESSION['username']) {
   // code...
  $currentUser =  $_SESSION['username'];
  $currentprivillege = $_SESSION['privillege'] ;
+  $openbusiness =  $_SESSION['businessname'];
+
 
 }else{
     header("Location:index.php");
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -35,7 +39,11 @@ if ($_SESSION['username']) {
 	<div>
     <div class="banner">
     	<div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
-    	<div class="shop-name"><center><h3>Business name here</h3></center></div>
+    	<div class="shop-name"><center>
+         
+        <h3><?php echo $openbusiness; ?></h3>
+        
+      </center></div>
     </div>
 </div>
 <!-- nav -->
