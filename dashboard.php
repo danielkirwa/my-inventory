@@ -104,20 +104,79 @@ if ($_SESSION['username']) {
 <br><br>
 <div class="dashboard">Welcome to <?php echo $currentprivillege; ?> Dashboard
    <div class="general-banner">
-    <div class="card">card</div>
-      <div class="card">card</div>
+
+    <div class="card">
+      <center><label class="my-label">This Month sale</label><br>
+          </center>
+          <hr>
+          <center><label class="my-label"><span>Ksh. </span>0.00</label><br>
+          </center>
+        </div>
+
+      <div class="card">
+        <center><label class="my-label">Business growth</label><br>
+          </center>
+          <hr>
+
+          <center><label class="my-label"><span>Up/Down </span>0.00</label><br>
+          </center>
+
+      </div>
     
    </div>
    <div class="dashboard-card-holder">
+      <div class="card">
+        <center><label class="my-label">Up coming Expiries</label><br>
+          </center>
+
+          <div class="small-scroll-table">
+  <div class="small-table-holder">
+  <table>
+    <thead>
+      <th>Product/Item</th>
+      <th>Code </th>
+      <th>Date</th>
+    </thead>
+    <tbody>   
+        
+          </tbody>
+     </table>
+  </div>
+</div>
+
+          <!-- end of table -->
+      </div>
+      <div class="card">
+        <center><label class="my-label">Expiries</label><br>
+          </center>
+                <div class="small-scroll-table">
+  <div class="small-table-holder">
+  <table>
+    <thead>
+      <th>Product/Item</th>
+      <th>Code </th>
+      <th>Date</th>
+    </thead>
+    <tbody>   
+        
+          </tbody>
+     </table>
+  </div>
+</div>
+
+          <!-- end of table -->
+
+      </div>
       <div class="card">card</div>
-      <div class="card">card</div>
-      <div class="card">card</div>
-      <div class="card">card</div>
-      <div class="card">card</div>
+      <div class="card">Unpaid loan</div>
+      <div class="card">Overdue Load</div>
    </div>
    <div class="dashboard-message">
-      <div class="card">card</div>
-      <div class="card">card</div>
+      <div class="card">Out of stock table</div>
+      <div class="card">
+          <center><label class="my-label">Oders</label><br>
+          </center>
+      </div>
 
    </div>
 </div>
