@@ -102,14 +102,15 @@ if ($_SESSION['username']) {
 
 <!-- start of dashboard -->
 <br><br>
-<div class="dashboard">Welcome to <?php echo $currentprivillege; ?> Dashboard
+<div class="dashboard"><b>Welcome to <?php echo $currentprivillege; ?> Dashboard</b>
    <div class="general-banner">
 
     <div class="card">
       <center><label class="my-label">This Month sale</label><br>
           </center>
           <hr>
-          <center><label class="my-label"><span>Ksh. </span>0.00</label><br>
+          <center><img src="assets/saleicon.png"> </center>
+          <center><label class="my-label"><span>Ksh. </span>0.00</label><br><br>
           </center>
         </div>
 
@@ -117,8 +118,29 @@ if ($_SESSION['username']) {
         <center><label class="my-label">Business growth</label><br>
           </center>
           <hr>
+           <center><img src="assets/growthicon.png"> </center>
+          <center><label class="my-label"><span>Up/Down </span>0.00</label><br><br>
+          </center>
 
-          <center><label class="my-label"><span>Up/Down </span>0.00</label><br>
+      </div>
+
+
+      <div class="card">
+        <center><label class="my-label">Unpaid Loan</label><br>
+          </center>
+          <hr>
+           <center><img src="assets/loanicon.png"> </center>
+          <center><label class="my-label"><span>Up/Down </span>0.00</label><br><br>
+          </center>
+
+      </div>
+
+        <div class="card">
+        <center><label class="my-label">Our Customers</label><br>
+          </center>
+          <hr>
+           <center><img src="assets/customericon.png"> </center>
+          <center><label class="my-label">0</label><br><br>
           </center>
 
       </div>
@@ -163,18 +185,78 @@ if ($_SESSION['username']) {
      </table>
   </div>
 </div>
-
-          <!-- end of table -->
-
+         <!-- end of table -->
       </div>
-      <div class="card">card</div>
-      <div class="card">Unpaid loan</div>
-      <div class="card">Overdue Load</div>
+
    </div>
    <div class="dashboard-message">
-      <div class="card">Out of stock table</div>
       <div class="card">
-          <center><label class="my-label">Oders</label><br>
+         <center><label class="my-label">Out of stock</label><br>
+          </center>
+                <div class="small-scroll-table">
+  <div class="small-table-holder">
+  <table>
+    <thead>
+      <th>Product/Item</th>
+      <th>Code </th>
+      <th>Date</th>
+    </thead>
+    <tbody>   
+        
+          </tbody>
+     </table>
+  </div>
+</div>
+         <!-- end of table -->
+      </div>
+
+
+      <div class="card">
+          <center><label class="my-label">
+             <center><label class="my-label">Oders</label><br>
+          </center>
+                <div class="small-scroll-table">
+  <div class="small-table-holder">
+  <table>
+    <thead>
+      <th>Customer Name</th>
+      <th>Amount </th>
+      <th>Due Date</th>
+    </thead>
+    <tbody>   
+        
+          </tbody>
+     </table>
+  </div>
+</div>
+         <!-- end of table -->
+          </label><br>
+          </center>
+      </div>
+
+
+
+
+       <div class="card">
+          <center><label class="my-label">
+             <center><label class="my-label">Over Due Loan</label><br>
+          </center>
+                <div class="small-scroll-table">
+  <div class="small-table-holder">
+  <table>
+    <thead>
+      <th>Customer Name</th>
+      <th>Amount </th>
+      <th>Due Date</th>
+    </thead>
+    <tbody>   
+        
+          </tbody>
+     </table>
+  </div>
+</div>
+         <!-- end of table -->
+          </label><br>
           </center>
       </div>
 
@@ -182,6 +264,9 @@ if ($_SESSION['username']) {
 </div>
 
 <!-- end of dashboard -->
+
+
+<br><br><br><br><br><br>
 <!-- footer starts -->
 <div class="footer">
 	 <h3></h3>
