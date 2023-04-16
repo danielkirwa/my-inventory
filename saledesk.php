@@ -207,7 +207,7 @@ if($_POST['productcode'] != ""){
 <!-- start of sale dashboard -->
 
 <div class="scroll-table">
-  <div class="table-holder">
+  <div class="table-holder" id="readyreciept">
     <div class="table-caption">
       <label class="my-label">Reciept Items count :   </label>
     </div>
@@ -222,10 +222,16 @@ if($_POST['productcode'] != ""){
                  
       </tbody>
      </table>
-
+    <!-- totals and all other data -->
+    <div>
+      
+    </div>
+   
+</div>
 
 </div>
-</div>
+
+<center> <button class="my-btn" id="printer">Make Sale</button> </center>
 <!-- end of sale das -->
 
 
