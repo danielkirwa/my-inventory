@@ -13,6 +13,7 @@ if ($_SESSION['username']) {
   // code...
  $currentUser =  $_SESSION['username'];
  $currentprivillege = $_SESSION['privillege'] ;
+ $openbusiness =  $_SESSION['businessname'];
 
 }else{
     header("Location:index.php");
@@ -209,7 +210,9 @@ if($_POST['productcode'] != ""){
 <div class="scroll-table">
   <div class="table-holder" id="readyreciept">
     <div class="table-caption">
-      <label class="my-label">Reciept Items count :   </label>
+      <hr>
+        <center><h3><?php echo $openbusiness; ?></h3></center>
+    <hr>
     </div>
   <table id="reciepttable">
     <thead>
@@ -223,6 +226,9 @@ if($_POST['productcode'] != ""){
       </tbody>
      </table>
     <!-- totals and all other data -->
+    <hr>
+    <br>
+    <hr>
      <div class="general-banner">
    
       <div class="small-card">
@@ -255,7 +261,9 @@ if($_POST['productcode'] != ""){
   
    </div>
 
-
+   <hr>
+    <br>
+    <hr>
     <!-- end other data -->
    
 </div>
