@@ -223,9 +223,40 @@ if($_POST['productcode'] != ""){
       </tbody>
      </table>
     <!-- totals and all other data -->
-    <div>
-      
-    </div>
+     <div class="general-banner">
+   
+      <div class="small-card">
+        <center> <label class="my-label">Totals</label><br>
+    </center>
+
+     <table style="min-width: 600px;">
+       <thead>
+        <th>Payment information</th>
+         <th>Total</th>
+         <th>Discount</th>
+         <th>Grand Total</th>
+       </thead>
+       <tr>
+        <td>
+          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
+    <label><span>Date : </span> <?php 
+         echo date("Y-m-d h:i:sa");
+  ?></label><br>
+    <label><span>Sale type : </span> Cash/Deposit</label><br>
+        </td>
+         <td>0.00</td>
+         <td>0.00</td>
+         <td>0.00</td>
+       </tr>
+     </table>
+
+     </div>
+
+  
+   </div>
+
+
+    <!-- end other data -->
    
 </div>
 

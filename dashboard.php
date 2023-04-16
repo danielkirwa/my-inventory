@@ -155,13 +155,15 @@ if ($_SESSION['username']) {
   <div class="small-table-holder">
   <table>
     <thead>
+      <tr>
       <th>Product/Item</th>
       <th>Code </th>
       <th>Date</th>
+    </tr>
     </thead>
     <tbody>   
-        
-          </tbody>
+         
+    </tbody>
      </table>
   </div>
 </div>
