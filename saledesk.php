@@ -70,7 +70,7 @@ if($_POST['productcode'] != ""){
 	<div>
     <div class="banner">
     	<div class="vender-logo"><img src="assets/logo/juelgaicon.png"> </div>
-    	<div class="shop-name"><center><h3>Business name here</h3></center></div>
+    	<div class="shop-name"><center><h3><?php echo $openbusiness; ?></h3></center></div>
     </div>
 </div>
 <!-- nav -->
@@ -138,13 +138,13 @@ if($_POST['productcode'] != ""){
     </div>
       <div class="small-card">
         <center> <label class="my-label">Total Count</label><br>
-    <label class="my-label">5</label>
+    <label class="my-label">0</label>
     </center>
       </div>
        <div class="small-card">
          
            <center> <label class="my-label">Total Amount</label><br>
-    <label class="my-label">22344</label>
+    <label class="my-label" id="priceholder">0</label>
     </center>
        </div>
     
@@ -250,9 +250,9 @@ if($_POST['productcode'] != ""){
   ?></label><br>
     <label><span>Sale type : </span> Cash/Deposit</label><br>
         </td>
+         <td id="tblpriceholder">0.00</td>
          <td>0.00</td>
-         <td>0.00</td>
-         <td>0.00</td>
+         <td id="tblgrandpriceholder">0.00</td>
        </tr>
      </table>
 

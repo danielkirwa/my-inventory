@@ -4,8 +4,12 @@ let newselectprice = document.getElementById('newselectprice');
 let itemcounter = document.getElementById('itemcounter');
 let btnaddtorecipt = document.getElementById('btnaddtorecipt');
 let snolabel = document.getElementById('snolabel');
+let priceholder = document.getElementById('priceholder');
+let tblpriceholder = document.getElementById('tblpriceholder');
+let tblgrandpriceholder = document.getElementById('tblgrandpriceholder');
 var count;
 var totalamount;
+var grandamount = 0;
 
 
 itemselected.addEventListener("change", function(){ 
@@ -60,6 +64,10 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
   cell2.innerHTML = count;
   cell1.innerHTML = item;
   cell4.innerHTML = `<button class="remove-btn" onclick="removeRow(this)">X</button>`;
+  grandamount = +grandamount + +totalamount;
+  priceholder.innerHTML = grandamount;
+  tblpriceholder.innerHTML = grandamount;
+  tblgrandpriceholder.innerHTML = grandamount;
 
 }else{
 	alert("Select new item to add ");
