@@ -9,6 +9,7 @@ let tblpriceholder = document.getElementById('tblpriceholder');
 let tblgrandpriceholder = document.getElementById('tblgrandpriceholder');
 var count;
 var totalamount;
+var removeditem = 0;
 var grandamount = 0;
 
 
@@ -77,8 +78,16 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
 
 // delete item
 function removeRow(button) {
-			var row = button.parentNode.parentNode;
+	var row = button.parentNode.parentNode;
+	 removeditem = row.getElementsByTagName("td")[2].textContent;
+	 grandamount = grandamount - +removeditem;
+	 priceholder.innerHTML = grandamount;
+	 tblpriceholder.innerHTML = grandamount;
+     tblgrandpriceholder.innerHTML = grandamount;
+			//remove row after subtraction
 			row.parentNode.removeChild(row);
+			
+
 		}
 
 

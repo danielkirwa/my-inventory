@@ -137,7 +137,7 @@ if($_POST['productcode'] != ""){
     </center>
     </div>
       <div class="small-card">
-        <center> <label class="my-label">Total Count</label><br>
+        <center> <label class="my-label">Total Discount</label><br>
     <label class="my-label">0</label>
     </center>
       </div>
