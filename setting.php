@@ -49,7 +49,7 @@ if ($_SESSION['username']) {
 </div>
 <!-- nav -->
 <div class="navbar">
-	  <a href="dashboard.php"  style=" background:  #0067a0;">Dashboard</a>
+	  <a href="dashboard.php">Dashboard</a>
   <div class="subnav">
     <button class="subnavbtn">My Business <i class="fa fa-caret-down"></i></button>
     <div class="subnav-content">
@@ -89,7 +89,7 @@ if ($_SESSION['username']) {
       <a href="#link4">Sales Report</a>
     </div>
   </div>
-  <a href="setting.php">Settings</a>
+  <a href="setting.php"  style=" background:  #0067a0;">Settings</a>
   <a href="saledesk.php">Sale Desk</a>
   <div class="subnav">
     <button class="subnavbtn"><?php echo $currentUser; ?><i class="fa fa-caret-down"></i></button>
@@ -103,7 +103,7 @@ if ($_SESSION['username']) {
 
 <!-- start of dashboard -->
 <br><br>
-<div class="dashboard"><b>Welcome to <?php echo $currentprivillege; ?> Dashboard</b>
+<div class="dashboard"><b>Welcome to <?php echo $currentprivillege; ?> Settings</b>
    <div class="general-banner">
 
     <div class="card">
@@ -157,30 +157,12 @@ if ($_SESSION['username']) {
     <!-- totals and all other data -->
      <div class="general-banner">
    
-      <div class="small-card">
-        <center> <label class="my-label">Orders</label><br>
+      <div class="small-card" style="min-width: 600px; background: #fff;">
+        <center> <label class="my-label">Acount Setting</label><br>
     </center>
 
-     <table style="min-width: 600px;">
-       <thead>
-        <th>Payment information</th>
-         <th>Total</th>
-         <th>Discount</th>
-         <th>Grand Total</th>
-       </thead>
-       <tr>
-        <td>
-          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
-    <label><span>Date : </span> <?php 
-         echo date("Y-m-d h:i:sa");
-  ?></label><br>
-    <label><span>Sale type : </span> Cash/Deposit</label><br>
-        </td>
-         <td id="tblpriceholder">0.00</td>
-         <td>0.00</td>
-         <td id="tblgrandpriceholder">0.00</td>
-       </tr>
-     </table>
+    
+        <label>update acount</label>
 
      </div>
 
@@ -191,30 +173,12 @@ if ($_SESSION['username']) {
     <!-- totals and all other data -->
      <div class="general-banner">
    
-      <div class="small-card">
-        <center> <label class="my-label">Over Due Loan</label><br>
+      <div class="small-card" style="min-width: 600px; background: #fff;">
+        <center> <label class="my-label">Acount Setting</label><br>
     </center>
 
-     <table style="min-width: 600px;">
-       <thead>
-        <th>Payment information</th>
-         <th>Total</th>
-         <th>Discount</th>
-         <th>Grand Total</th>
-       </thead>
-       <tr>
-        <td>
-          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
-    <label><span>Date : </span> <?php 
-         echo date("Y-m-d h:i:sa");
-  ?></label><br>
-    <label><span>Sale type : </span> Cash/Deposit</label><br>
-        </td>
-         <td id="tblpriceholder">0.00</td>
-         <td>0.00</td>
-         <td id="tblgrandpriceholder">0.00</td>
-       </tr>
-     </table>
+    
+        <label>update acount</label>
 
      </div>
 
@@ -223,101 +187,21 @@ if ($_SESSION['username']) {
     <!-- totals and all other data -->
      <div class="general-banner">
    
-      <div class="small-card">
-        <center> <label class="my-label">Out of Stock</label><br>
+      <div class="small-card" style="min-width: 600px; background: #fff;">
+        <center> <label class="my-label">Acount Setting</label><br>
     </center>
 
-     <table style="min-width: 600px;">
-       <thead>
-        <th>Payment information</th>
-         <th>Total</th>
-         <th>Discount</th>
-         <th>Grand Total</th>
-       </thead>
-       <tr>
-        <td>
-          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
-    <label><span>Date : </span> <?php 
-         echo date("Y-m-d h:i:sa");
-  ?></label><br>
-    <label><span>Sale type : </span> Cash/Deposit</label><br>
-        </td>
-         <td id="tblpriceholder">0.00</td>
-         <td>0.00</td>
-         <td id="tblgrandpriceholder">0.00</td>
-       </tr>
-     </table>
+    
+        <label>update acount</label>
 
      </div>
 
   
    </div>
 
-    <!-- totals and all other data -->
-     <div class="general-banner">
-   
-      <div class="small-card">
-        <center> <label class="my-label">Expiries</label><br>
-    </center>
-
-     <table style="min-width: 600px;">
-       <thead>
-        <th>Payment information</th>
-         <th>Total</th>
-         <th>Discount</th>
-         <th>Grand Total</th>
-       </thead>
-       <tr>
-        <td>
-          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
-    <label><span>Date : </span> <?php 
-         echo date("Y-m-d h:i:sa");
-  ?></label><br>
-    <label><span>Sale type : </span> Cash/Deposit</label><br>
-        </td>
-         <td id="tblpriceholder">0.00</td>
-         <td>0.00</td>
-         <td id="tblgrandpriceholder">0.00</td>
-       </tr>
-     </table>
-
-     </div>
+  
 
   
-   </div>
-
-    <!-- totals and all other data -->
-     <div class="general-banner">
-   
-      <div class="small-card">
-        <center> <label class="my-label">Upcoming Expiries</label><br>
-    </center>
-
-     <table style="min-width: 600px;">
-       <thead>
-        <th>Payment information</th>
-         <th>Total</th>
-         <th>Discount</th>
-         <th>Grand Total</th>
-       </thead>
-       <tr>
-        <td>
-          <label><span>Served by : </span> <?php echo $currentUser; ?></label><br>
-    <label><span>Date : </span> <?php 
-         echo date("Y-m-d h:i:sa");
-  ?></label><br>
-    <label><span>Sale type : </span> Cash/Deposit</label><br>
-        </td>
-         <td id="tblpriceholder">0.00</td>
-         <td>0.00</td>
-         <td id="tblgrandpriceholder">0.00</td>
-       </tr>
-     </table>
-
-     </div>
-
-  
-   </div>
 
    <hr>
     <br>

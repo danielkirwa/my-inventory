@@ -11,7 +11,7 @@ var count;
 var totalamount;
 var removeditem = 0;
 var grandamount = 0;
-
+var recieptitems = 0
 
 itemselected.addEventListener("change", function(){ 
 var item = Itemselected.options[Itemselected.selectedIndex].text;
@@ -66,9 +66,11 @@ var price = Itemselected.options[Itemselected.selectedIndex].value;
   cell1.innerHTML = item;
   cell4.innerHTML = `<button class="remove-btn" onclick="removeRow(this)">X</button>`;
   grandamount = +grandamount + +totalamount;
+  recieptitems = +recieptitems + 1;
   priceholder.innerHTML = grandamount;
   tblpriceholder.innerHTML = grandamount;
   tblgrandpriceholder.innerHTML = grandamount;
+  snolabel.innerHTML = recieptitems;
 
 }else{
 	alert("Select new item to add ");
@@ -84,6 +86,8 @@ function removeRow(button) {
 	 priceholder.innerHTML = grandamount;
 	 tblpriceholder.innerHTML = grandamount;
      tblgrandpriceholder.innerHTML = grandamount;
+     recieptitems = +recieptitems - 1;
+  snolabel.innerHTML = recieptitems;
 			//remove row after subtraction
 			row.parentNode.removeChild(row);
 			

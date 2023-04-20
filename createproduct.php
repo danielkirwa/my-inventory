@@ -114,11 +114,12 @@ if($_POST['code'] != ""){
     $newcurrentprice = $_POST['selling'];
     $newstockcode = $_POST['stockcode'];
      $newdescription = $_POST['description'];
+     $newunitstosale = $_POST['unitstosale'];
      $newdate =  date("Y-m-d");
 
         if(!empty($_POST['productname']) && !empty($_POST['productcode']) && !empty($_POST['buying'])  && !empty($_POST['selling'])) {
-         $newsuppliersql = "INSERT INTO tblproduct (Productname, Code,Dateadded,Addedby,Stockcode,Initialunitprice,Currentunitprice,Description,Status)
-            VALUES ('{$newname}','{$newcode}','{$newdate}','{$currentUser}','{$newstockcode}','{$newinitialprice}','{$newcurrentprice}','{$newdescription}',1)";
+         $newsuppliersql = "INSERT INTO tblproduct (Productname, Code,Dateadded,Addedby,Stockcode,Initialunitprice,Currentunitprice,Description,Status,Availableunitsale)
+            VALUES ('{$newname}','{$newcode}','{$newdate}','{$currentUser}','{$newstockcode}','{$newinitialprice}','{$newcurrentprice}','{$newdescription}',1, '{$newunitstosale}')";
 
 
               if ($conn->query($newsuppliersql) === TRUE) {
@@ -277,7 +278,7 @@ if($_POST['code'] != ""){
              
             
                <input type="hidden" name="saleunits" value="<?php echo $row["Saleunits"]; ?>">
-                 <label><?php echo "Available Units : ".$row["Saleunits"]; ?></label><br> 
+                 <label>Available Units : <span id="Availableunits"><?php echo $row["Saleunits"]; ?></span></label><br> 
           </center>
       </div>
       <div class="card">
@@ -333,6 +334,22 @@ if($_POST['code'] != ""){
       </div>
    </div>
 
+   <div class="input-holder">
+      <div class="card">
+        <center>
+          <label class="small-label">Units to sale</label><br>
+         <input type="text" name="unitstosale" value="<?php echo $row["Saleunits"]; ?>"class="my-input" id="txtunittosale">
+          </center>
+      </div>
+         <div class="card">
+        <center>
+          <label class="small-label">Units Still in Stock</label><br>
+         <input type="text" name="unitsinstock" value="<?php echo $row["Saleunits"]; ?>"class="my-input" id="txtunitinstock">
+          </center>
+      </div>
+     
+   </div>
+
 
    <div class="input-holder">
       <div class="card">
@@ -371,6 +388,7 @@ if($_POST['code'] != ""){
       <th>Current Price</th>
       <th>Description</th>
       <th>Status</th>
+      <th>State</th>
     </thead>
     <tbody>   
     <?php     
@@ -383,13 +401,21 @@ if($_POST['code'] != ""){
             <td><?php echo $row["Currentunitprice"]; ?></td>   
             <td><?php echo $row["Description"]; ?></td>      
             <td><?php 
-                  if ($row["Status"] == 1) {
+                  if ($row["Availableunitsale"] >= 1) {
                     // code...
                     echo "Instock";
                   }else{
                     echo "Out of stock";
                   }
-             ?></td>                                              
+             ?></td>  
+              <td><?php 
+                  if ($row["Status"] == 1) {
+                    // code...
+                    echo "On Sale";
+                  }else{
+                    echo "On Hold";
+                  }
+             ?></td>                                             
             </tr>     
             <?php     
                 };    
@@ -466,5 +492,25 @@ if($_POST['code'] != ""){
         window.location.href = 'createproduct.php?page='+page;   
     }   
   </script>  
+
+<script type="text/javascript">
+ 
+  txtunittosale.addEventListener("input", function(){ 
+     let txtunittosale = document.getElementById('txtunittosale');
+  let txtunitinstock = document.getElementById('txtunitinstock');
+  let availableunits = document.getElementById('Availableunits');
+  const  available = availableunits.textContent;
+  var saleunits = txtunittosale.value;
+  var remainder = 0;
+  remainder = +available - +saleunits
+  txtunitinstock.value = remainder; 
+ 
+
+ 
+
+});
+
+</script>
+
 </body>
 </html>
